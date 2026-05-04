@@ -32,3 +32,18 @@ export async function getPostBySlug(slug: string) {
   const posts = await fetchAPI(`/wp/v2/posts?slug=${slug}&_embed`);
   return posts[0];
 }
+
+export async function getMedia() {
+  return fetchAPI('/wp/v2/media?per_page=20');
+}
+
+export type WPMedia = {
+  id: number;
+  source_url: string;
+  title: { rendered: string };
+  alt_text: string;
+  media_details: {
+    width: number;
+    height: number;
+  };
+};
