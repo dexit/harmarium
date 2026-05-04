@@ -1,10 +1,10 @@
-import InteractiveGallery from '@/components/InteractiveGallery'
+import ImmersiveGallery3D from '@/components/ImmersiveGallery3D'
 
 export const metadata = {
-  title: 'Interactive Art Gallery | Harmarium',
-  description: 'Explore our curated collection of contemporary artworks and digital creations.',
+  title: 'Immersive 3D Gallery | Harmarium',
+  description: 'Walk through our immersive 3D art gallery. Explore artworks with guided tours or free exploration mode.',
 }
 
 export default function GalleryPage() {
-  return <InteractiveGallery />
+  return <ImmersiveGallery3D />
 }
