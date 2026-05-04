@@ -1,0 +1,40 @@
+
+> harmarium@0.1.0 dev /app
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 543ms
+
+○ Compiling / ...
+ GET / 200 in 4.5s (next.js: 3.9s, application-code: 585ms)
+  Reload env: .env.local
+○ Compiling /portfolio ...
+ GET /portfolio 200 in 10.2s (next.js: 7.1s, application-code: 3.1s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:23:9)
+    at <unknown> (src/components/Gallery3D.tsx:96:13)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:95:26)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  21 |     >
+  22 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 23 |         <Image
+     |         ^
+  24 |           url={url}
+  25 |           scale={[3, 4]}
+  26 |           onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:87:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  85 |       tabIndex={0}
+  86 |     >
+> 87 |       <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
+     |       ^
+  88 |         <color attach="background" args={['#050505']} />
+  89 |         <fog attach="fog" args={['#050505', 5, 25]} />
+  90 |         <ambientLight intensity={0.5} />
+[?25h
+ ELIFECYCLE  Command failed with exit code 143.

@@ -1,0 +1,149 @@
+
+> harmarium@0.1.0 dev /app
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env.local
+✓ Ready in 1426ms
+
+ GET /portfolio 200 in 3.5s (next.js: 783ms, application-code: 2.7s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:23:9)
+    at <unknown> (src/components/Gallery3D.tsx:96:13)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:95:26)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  21 |     >
+  22 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 23 |         <Image
+     |         ^
+  24 |           url={url}
+  25 |           scale={[3, 4]}
+  26 |           onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:87:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  85 |       tabIndex={0}
+  86 |     >
+> 87 |       <Canvas camera={{ position: [0, 0, 12], fov: 45 }}>
+     |       ^
+  88 |         <color attach="background" args={['#050505']} />
+  89 |         <fog attach="fog" args={['#050505', 5, 25]} />
+  90 |         <ambientLight intensity={0.5} />
+ GET /portfolio 200 in 2.7s (next.js: 75ms, application-code: 2.6s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:27:11)
+    at <unknown> (src/components/Gallery3D.tsx:98:13)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:97:26)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  25 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+  26 |         <Suspense fallback={<mesh><boxGeometry args={[3, 4, 0.05]} /><meshStandardMaterial...
+> 27 |           <Image
+     |           ^
+  28 |             url={url}
+  29 |             scale={[3, 4]}
+  30 |             onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:89:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  87 |       tabIndex={0}
+  88 |     >
+> 89 |       <Canvas camera={{ position: [0, 0, 12], fov: 45 }} gl={{ antialias: true, preserveDr...
+     |       ^
+  90 |         <color attach="background" args={['#050505']} />
+  91 |         <fog attach="fog" args={['#050505', 5, 25]} />
+  92 |         <ambientLight intensity={0.4} />
+ GET /portfolio 200 in 1862ms (next.js: 12ms, application-code: 1850ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:25:11)
+    at <unknown> (src/components/Gallery3D.tsx:118:15)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:117:28)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  23 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+  24 |         <Suspense fallback={<mesh><boxGeometry args={[3, 4, 0.05]} /><meshStandardMaterial...
+> 25 |           <Image
+     |           ^
+  26 |             url={url}
+  27 |             scale={[3, 4]}
+  28 |             onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:104:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  102 |       tabIndex={0}
+  103 |     >
+> 104 |       <Canvas
+      |       ^
+  105 |         camera={{ position: [0, 0, 14], fov: 45 }}
+  106 |         gl={{ antialias: true, alpha: false, stencil: false, depth: true }}
+  107 |         dpr={[1, 2]} // Performance optimization
+ GET /portfolio 200 in 1856ms (next.js: 9ms, application-code: 1847ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:24:11)
+    at <unknown> (src/components/Gallery3D.tsx:115:13)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:114:26)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  22 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+  23 |         <Suspense fallback={<mesh><boxGeometry args={[3, 4, 0.05]} /><meshStandardMaterial...
+> 24 |           <Image
+     |           ^
+  25 |             url={url}
+  26 |             scale={[3, 4]}
+  27 |             onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:102:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  100 |       tabIndex={0}
+  101 |     >
+> 102 |       <Canvas
+      |       ^
+  103 |         camera={{ position: [0, 0, 14], fov: 45 }}
+  104 |         gl={{ antialias: true, alpha: false }}
+  105 |         dpr={[1, 1.5]}
+ GET /portfolio 200 in 1874ms (next.js: 7ms, application-code: 1867ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:23:9)
+    at <unknown> (src/components/Gallery3D.tsx:103:15)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:102:28)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  21 |     >
+  22 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 23 |         <Image
+     |         ^
+  24 |           url={url}
+  25 |           scale={[3, 4]}
+  26 |           onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/smush-webp/2025/02/2025-02-19-at-23.48.00_75665b2c-scaled.jpg.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:89:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  87 |       aria-label="3D Image Gallery"
+  88 |     >
+> 89 |       <Canvas
+     |       ^
+  90 |         camera={{ position: [0, 0, 15], fov: 45 }}
+  91 |         dpr={[1, 1.5]}
+  92 |         gl={{ antialias: true, alpha: false }}
+ GET /portfolio 200 in 2.1s (next.js: 10ms, application-code: 2.1s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env.local
+✓ Ready in 464ms
+
+[?25h
+ ELIFECYCLE  Command failed with exit code 143.
