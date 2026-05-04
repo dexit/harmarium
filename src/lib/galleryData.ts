@@ -1,4 +1,6 @@
 // Multi-room gallery data structure
+import { fetchPortfolioItems, fetchMediaUrl, getCategoryName, stripHtml } from './portfolioApi'
+
 export const GALLERY_ROOMS = [
   {
     id: 'entrance',
@@ -56,7 +58,6 @@ export const GALLERY_ROOMS = [
   },
 ]
 
-// Room connection map for efficient loading
 export const ROOM_CONNECTIONS: Record<string, string[]> = {
   'entrance': ['main-portraits', 'digital-sketches', 'early-days'],
   'main-portraits': ['entrance', 'east-hallway', 'west-hallway'],
@@ -69,143 +70,121 @@ export const ROOM_CONNECTIONS: Record<string, string[]> = {
   'back-hall': ['exhibition-room', 'sketch-room'],
 }
 
-// Artwork data mapped to rooms
-export const ARTWORK_DATA = [
-  // Main Portrait Room
+export interface ArtworkData {
+  id: string
+  title: string
+  description: string
+  category: string
+  room: string
+  position: [number, number, number]
+}
+
+const ROOM_POSITIONS: Record<string, [number, number, number][]> = {
+  'main-portraits': [
+    [-8, 1.5, -10],
+    [-2, 1.5, -10],
+    [4, 1.5, -10],
+    [-8, 1.5, -14],
+    [-2, 1.5, -14],
+    [4, 1.5, -14],
+  ],
+  'digital-sketches': [
+    [15, 1.5, -10],
+    [21, 1.5, -10],
+    [27, 1.5, -10],
+    [15, 1.5, -14],
+    [21, 1.5, -14],
+    [27, 1.5, -14],
+  ],
+  'early-days': [
+    [-26, 1.5, -10],
+    [-20, 1.5, -10],
+    [-14, 1.5, -10],
+    [-26, 1.5, -14],
+    [-20, 1.5, -14],
+    [-14, 1.5, -14],
+  ],
+  'exhibition-room': [
+    [-28, 1.5, 8],
+    [-22, 1.5, 8],
+    [-16, 1.5, 8],
+    [-28, 1.5, 14],
+    [-22, 1.5, 14],
+    [-16, 1.5, 14],
+  ],
+  'sketch-room': [
+    [15, 1.5, 8],
+    [21, 1.5, 8],
+    [27, 1.5, 8],
+    [15, 1.5, 14],
+    [21, 1.5, 14],
+    [27, 1.5, 14],
+  ],
+}
+
+const DEFAULT_ARTWORK_DATA: ArtworkData[] = [
   {
-    id: 'portrait-1',
-    title: 'Orange 2',
-    description: 'A vibrant portrait study exploring color harmony and form.',
-    category: 'Portrait',
+    id: 'fallback-1',
+    title: 'Gallery Loading...',
+    description: 'Loading artwork from Harmarium portfolio...',
+    category: 'Notice',
     room: 'main-portraits',
-    position: [-8, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'portrait-2',
-    title: 'Portrait 1184',
-    description: 'Contemporary portrait composition with dynamic lighting.',
-    category: 'Portrait',
-    room: 'main-portraits',
-    position: [-2, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'portrait-3',
-    title: 'Hel',
-    description: 'Expressive character study with rich emotional depth.',
-    category: 'Portrait',
-    room: 'main-portraits',
-    position: [4, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'portrait-4',
-    title: 'Spring',
-    description: 'Seasonal portrait celebrating new beginnings.',
-    category: 'Portrait',
-    room: 'main-portraits',
-    position: [-8, 1.5, -14] as [number, number, number],
-  },
-  
-  // Digital Sketches Room
-  {
-    id: 'digital-1',
-    title: 'Digital Sketch 1034',
-    description: 'Digital line work and form exploration.',
-    category: 'Digital Sketch',
-    room: 'digital-sketches',
-    position: [15, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'digital-2',
-    title: 'Digital Sketch 1033',
-    description: 'Digital medium study with bold strokes.',
-    category: 'Digital Sketch',
-    room: 'digital-sketches',
-    position: [21, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'digital-3',
-    title: 'Digital Sketch 1032',
-    description: 'Contemporary digital artwork.',
-    category: 'Digital Sketch',
-    room: 'digital-sketches',
-    position: [27, 1.5, -10] as [number, number, number],
-  },
-  
-  // Early Days - Paintings
-  {
-    id: 'early-1',
-    title: 'Welsh Rose',
-    description: 'Classical painting from early collection.',
-    category: 'Painting',
-    room: 'early-days',
-    position: [-26, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'early-2',
-    title: 'Water Lilly',
-    description: 'Nature-inspired painting with watercolor techniques.',
-    category: 'Painting',
-    room: 'early-days',
-    position: [-20, 1.5, -10] as [number, number, number],
-  },
-  {
-    id: 'early-3',
-    title: 'Silver Portrait',
-    description: 'Monochromatic study in silver tones.',
-    category: 'Painting',
-    room: 'early-days',
-    position: [-14, 1.5, -10] as [number, number, number],
-  },
-  
-  // Exhibition Room
-  {
-    id: 'exhibit-1',
-    title: 'Young Richy',
-    description: 'Portrait from The Other U exhibition.',
-    category: 'Exhibition',
-    room: 'exhibition-room',
-    position: [-28, 1.5, 10] as [number, number, number],
-  },
-  {
-    id: 'exhibit-2',
-    title: 'Mute',
-    description: 'Expressive piece from special collection.',
-    category: 'Exhibition',
-    room: 'exhibition-room',
-    position: [-22, 1.5, 10] as [number, number, number],
-  },
-  {
-    id: 'exhibit-3',
-    title: 'cockatoo',
-    description: 'Animal portrait study.',
-    category: 'Exhibition',
-    room: 'exhibition-room',
-    position: [-16, 1.5, 10] as [number, number, number],
-  },
-  
-  // Sketchbook Archives
-  {
-    id: 'sketch-1',
-    title: 'Portrait Sketch 8893',
-    description: 'Archival sketch from personal collection.',
-    category: 'Sketch',
-    room: 'sketch-room',
-    position: [15, 1.5, 10] as [number, number, number],
-  },
-  {
-    id: 'sketch-2',
-    title: 'Portrait Sketch 8892',
-    description: 'Foundational drawing technique study.',
-    category: 'Sketch',
-    room: 'sketch-room',
-    position: [21, 1.5, 10] as [number, number, number],
-  },
-  {
-    id: 'sketch-3',
-    title: 'Portrait Sketch 8891',
-    description: 'Character design exploration.',
-    category: 'Sketch',
-    room: 'sketch-room',
-    position: [27, 1.5, 10] as [number, number, number],
+    position: [0, 1.5, -12],
   },
 ]
+
+export async function fetchArtworkData(): Promise<ArtworkData[]> {
+  try {
+    const portfolioItems = await fetchPortfolioItems()
+
+    if (!portfolioItems || portfolioItems.length === 0) {
+      return DEFAULT_ARTWORK_DATA
+    }
+
+    const artwork: ArtworkData[] = []
+    const rooms = ['main-portraits', 'digital-sketches', 'early-days', 'exhibition-room', 'sketch-room']
+    let roomIndex = 0
+    let positionIndex = 0
+
+    for (let i = 0; i < portfolioItems.length && artwork.length < 30; i++) {
+      const item = portfolioItems[i]
+      const currentRoom = rooms[roomIndex % rooms.length]
+      const positions = ROOM_POSITIONS[currentRoom]
+
+      if (!positions || positionIndex >= positions.length) {
+        roomIndex++
+        positionIndex = 0
+        continue
+      }
+
+      const category = item.portfolio_category?.[0]
+        ? await getCategoryName(item.portfolio_category[0])
+        : 'Portfolio'
+
+      const title = item.title?.rendered || `Artwork ${i + 1}`
+      const description = stripHtml(item.excerpt?.rendered || 'A beautiful artwork from the Harmarium collection.')
+
+      artwork.push({
+        id: `portfolio-${item.id}`,
+        title,
+        description,
+        category,
+        room: currentRoom,
+        position: positions[positionIndex],
+      })
+
+      positionIndex++
+      if (positionIndex >= positions.length) {
+        roomIndex++
+        positionIndex = 0
+      }
+    }
+
+    return artwork.length > 0 ? artwork : DEFAULT_ARTWORK_DATA
+  } catch (error) {
+    console.error('[Gallery] Error fetching artwork:', error)
+    return DEFAULT_ARTWORK_DATA
+  }
+}
+
+export const ARTWORK_DATA: ArtworkData[] = DEFAULT_ARTWORK_DATA

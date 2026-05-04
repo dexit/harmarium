@@ -9,7 +9,7 @@ import { ArtworkFrame } from './ArtworkFrame'
 import { GalleryController } from './GalleryController'
 import { GallerySidePanel } from './GallerySidePanel'
 import { ErrorBoundary } from './ErrorBoundary'
-import { ARTWORK_DATA, GALLERY_ROOMS } from '@/lib/galleryData'
+import { GALLERY_ROOMS, fetchArtworkData, type ArtworkData } from '@/lib/galleryData'
 
 export interface GalleryArtwork {
   id: string
@@ -23,19 +23,30 @@ export interface GalleryArtwork {
   room: string
 }
 
-// Fetch random placeholder image based on hash
-function getPlaceholderImage(id: string): string {
-  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${id}`
+// Get image URL from portfolio media - tries featured media first, falls back to placeholder
+export async function getArtworkImage(artworkId: string, featured_media?: number): Promise<string> {
+  if (featured_media) {
+    try {
+      const { fetchMediaUrl } = await import('@/lib/portfolioApi')
+      const url = await fetchMediaUrl(featured_media)
+      if (url) return url
+    } catch {
+      // Fallback to placeholder
+    }
+  }
+  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${artworkId}`
 }
 
-// Create artwork with efficient memory usage
-function createGalleryArtworks(): GalleryArtwork[] {
-  return ARTWORK_DATA.map((art, index) => ({
-    ...art,
-    rotation: [0, 0, 0] as [number, number, number],
-    scale: 1,
-    imagePath: getPlaceholderImage(art.id),
-  }))
+// Create artwork with efficient memory usage - called at component mount
+async function createGalleryArtworks(artworkData: ArtworkData[]): Promise<GalleryArtwork[]> {
+  return Promise.all(
+    artworkData.map(async (art) => ({
+      ...art,
+      rotation: [0, 0, 0] as [number, number, number],
+      scale: 1,
+      imagePath: await getArtworkImage(art.id),
+    }))
+  )
 }
 
 interface SceneProps {
@@ -106,7 +117,27 @@ export default function ImmersiveGallery3D() {
   const [selectedArtwork, setSelectedArtwork] = useState<GalleryArtwork | null>(null)
   const [isGuidedMode, setIsGuidedMode] = useState(true)
   const [currentRoom, setCurrentRoom] = useState('entrance')
-  const artworks = useMemo(() => createGalleryArtworks(), [])
+  const [artworks, setArtworks] = useState<GalleryArtwork[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Fetch portfolio data and create artwork on mount
+  useEffect(() => {
+    const initializeGallery = async () => {
+      try {
+        const artworkData = await fetchArtworkData()
+        const processedArtworks = await createGalleryArtworks(artworkData)
+        setArtworks(processedArtworks)
+      } catch (error) {
+        console.error('[Gallery] Failed to initialize:', error)
+        // Still show gallery with empty state or fallback
+        setArtworks([])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    initializeGallery()
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
