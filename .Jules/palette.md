@@ -1,13 +1,13 @@
-# Palette's Journal - Harmarium
+# Palette's Journal - Harmarium Portfolio
 
-## 2024-05-24 - Headless 3D Foundation
-**Learning:** Initializing a headless WordPress frontend with a 3D gallery requires robust fallback mechanisms. WordPress REST API media endpoints can be slow or blocked by CORS in certain environments, so a stable "empty state" or "placeholder state" is essential for the 3D canvas to prevent hydration errors or visual breakage.
-**Action:** Always implement a `mounted` state for Three.js canvases in Next.js to avoid SSR/hydration mismatches, and provide high-quality fallback imagery (like picsum.photos) when the WP API is unreachable.
+## 2025-05-04 - High Contrast Requirements for Dark Gallery
+**Learning:** The 3D Atrium gallery uses a very dark background (#020203). Zinc-500 and Zinc-600 do not meet WCAG AA contrast ratios in this environment.
+**Action:** Always use Zinc-400 or lighter for text elements within the gallery container to ensure accessibility.
 
-## 2024-05-24 - Accessibility in 3D Spaces
-**Learning:** 3D galleries (Three.js) are often "black boxes" for screen readers and keyboard users.
-**Action:** Use a hidden semantic list (`sr-only`) that mirrors the gallery content and wrap the canvas in a region with clear ARIA labels. Implement high-contrast `focus-visible` rings globally to ensure the interactive elements surrounding the canvas are easily navigable.
+## 2025-05-04 - Semantic Mirroring for 3D Content
+**Learning:** 3D Canvas elements are invisible to screen readers.
+**Action:** Implement a semantic mirror using an `sr-only` list (`ul/li`) that replicates the content of the 3D gallery, allowing assistive technologies to announce the items and their descriptions.
 
-## 2024-05-24 - 3D Loading UX & Asset Reliability
-**Learning:** A static "Initializing" message for 3D galleries is insufficient for good UX. Users need feedback during heavy asset loading (textures, geometries). Generic external placeholders (picsum) can lead to broken layouts if the service is throttled or down.
-**Action:** Implement a dynamic loading progress indicator using `@react-three/drei`'s `useProgress` with appropriate ARIA `role="progressbar"`. Ship local optimized assets as a "hero" fallback to guarantee a high-fidelity experience regardless of API availability.
+## 2025-05-04 - Asset Resilience
+**Learning:** WordPress media library can contain broken or external links (e.g., harmarium.com) that fail to load in THREE.js due to CORS or availability.
+**Action:** Implement a robust local fallback set and filter out problematic external URLs to prevent "Experience Temporarily Unavailable" states.
