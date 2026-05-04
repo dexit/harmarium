@@ -160,10 +160,11 @@ export default function ImmersiveGallery3D() {
     <div className="h-screen w-full relative bg-white overflow-hidden" role="region" aria-label="Immersive 3D Art Gallery">
       <ErrorBoundary fallback={<FallbackUI />}>
         <Canvas
-          camera={{ position: [0, 1.6, 0], fov: 70 }}
-          dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: false }}
+          camera={{ position: [0, 1.6, 8], fov: 75 }}
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
           style={{ width: '100%', height: '100%' }}
+          shadows="soft"
         >
           <Suspense fallback={<Loader />}>
             <Scene
@@ -175,33 +176,60 @@ export default function ImmersiveGallery3D() {
           </Suspense>
         </Canvas>
 
-        {/* Mode Toggle Button */}
-        <div className="absolute top-6 left-6 z-50">
+        {/* Mode Toggle Button - Game-like HUD */}
+        <div className="absolute top-6 left-6 z-50 flex items-center gap-3">
           <button
             onClick={() => setIsGuidedMode(!isGuidedMode)}
-            className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm rounded-lg hover:bg-white/20 transition-colors font-medium"
+            className="px-4 py-2 bg-black/40 backdrop-blur-xl border border-white/30 text-white text-sm rounded font-mono hover:bg-black/60 hover:border-white/50 transition-all duration-200 font-bold tracking-wider"
           >
-            {isGuidedMode ? '🎬 Guided Tour' : '🎮 Free Mode'}
+            [{isGuidedMode ? 'TOUR' : 'FREE'}]
           </button>
+          <div className="px-3 py-2 bg-black/40 backdrop-blur-xl border border-white/30 text-white text-xs rounded font-mono">
+            FPS GALLERY
+          </div>
         </div>
 
-        {/* Instructions */}
-        <div className="absolute top-6 right-6 z-50 text-right text-white text-xs bg-white/5 backdrop-blur-md border border-white/10 px-4 py-3 rounded-lg max-w-xs">
-          <p className="font-semibold mb-2">Controls</p>
+        {/* Crosshair - Game HUD element */}
+        {!isGuidedMode && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none">
+            <div className="w-8 h-8 border-2 border-white/30 rounded-full"></div>
+            <div className="absolute top-1/2 left-1/2 w-4 h-0.5 bg-white/30 transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute top-1/2 left-1/2 h-4 w-0.5 bg-white/30 transform -translate-x-1/2 -translate-y-1/2"></div>
+          </div>
+        )}
+
+        {/* Instructions - Bottom Left Corner (Game Style) */}
+        <div className="absolute bottom-6 left-6 z-50 text-white text-xs bg-black/40 backdrop-blur-xl border border-white/20 px-4 py-3 rounded font-mono space-y-1 max-w-xs">
+          <p className="font-bold text-white/80 mb-2 tracking-wider">CONTROLS</p>
           {isGuidedMode ? (
             <>
-              <p>🖱️ Scroll: Move through gallery</p>
-              <p>🔄 Mouse: Look around</p>
-              <p>🖱️ Click: Inspect artwork</p>
+              <p><span className="text-yellow-400">SCROLL</span> - Navigate tour</p>
+              <p><span className="text-yellow-400">MOUSE</span> - Look around</p>
+              <p><span className="text-yellow-400">CLICK</span> - Inspect artwork</p>
             </>
           ) : (
             <>
-              <p>⌨️ WASD: Move around</p>
-              <p>🖱️ Mouse: Look around</p>
-              <p>🖱️ Click: Inspect artwork</p>
+              <p><span className="text-yellow-400">W/A/S/D</span> - Move</p>
+              <p><span className="text-yellow-400">MOUSE</span> - Look around</p>
+              <p><span className="text-yellow-400">CLICK</span> - Lock/Unlock mouse</p>
             </>
           )}
         </div>
+
+        {/* Artwork Counter - Bottom Right */}
+        <div className="absolute bottom-6 right-6 z-50 text-white text-xs bg-black/40 backdrop-blur-xl border border-white/20 px-4 py-3 rounded font-mono">
+          <p className="text-white/60">ARTWORKS LOADED</p>
+          <p className="text-yellow-400 text-lg font-bold">{artworks.length}</p>
+        </div>
+
+        {/* Crosshair Label - Center (when hovering artworks in free mode) */}
+        {!isGuidedMode && selectedArtwork && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-8 z-40 pointer-events-none">
+            <div className="px-3 py-1 bg-yellow-400/80 text-black text-xs font-bold rounded font-mono">
+              [{selectedArtwork.title}]
+            </div>
+          </div>
+        )}
 
         {/* Side Panel */}
         <GallerySidePanel
