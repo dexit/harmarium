@@ -1,0 +1,79 @@
+
+> harmarium@0.1.0 dev /app
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env.local
+✓ Ready in 862ms
+
+ GET /portfolio 200 in 4.1s (next.js: 859ms, application-code: 3.3s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:62:9)
+    at <unknown> (src/components/Gallery3D.tsx:144:15)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:143:28)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  60 |     >
+  61 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 62 |         <Image
+     |         ^
+  63 |           url={url}
+  64 |           scale={[3, 4]}
+  65 |           onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:130:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  128 |       aria-label="3D Image Gallery"
+  129 |     >
+> 130 |       <Canvas
+      |       ^
+  131 |         camera={{ position: [0, 0, 15], fov: 45 }}
+  132 |         dpr={[1, 1.5]}
+  133 |         gl={{ antialias: true, alpha: false }}
+ GET /portfolio 200 in 2.1s (next.js: 7ms, application-code: 2.1s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:62:9)
+    at <unknown> (src/components/Gallery3D.tsx:144:15)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:143:28)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  60 |     >
+  61 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 62 |         <Image
+     |         ^
+  63 |           url={url}
+  64 |           scale={[3, 4]}
+  65 |           onPointerOver={() => hover(true)}
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Gallery3D (src/components/Gallery3D.tsx:130:7)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  128 |       aria-label="3D Image Gallery"
+  129 |     >
+> 130 |       <Canvas
+      |       ^
+  131 |         camera={{ position: [0, 0, 15], fov: 45 }}
+  132 |         dpr={[1, 1.5]}
+  133 |         gl={{ antialias: true, alpha: false }}
+ GET /portfolio 200 in 2.4s (next.js: 71ms, application-code: 2.3s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Cannot update a component (`Loader`) while rendering a different component (`ForwardRef`). To locate the bad setState() call inside `ForwardRef`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+    at Set.forEach (<anonymous>)
+    at new Promise (<anonymous>)
+    at Array.map (<anonymous>) (<anonymous>)
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/03/hika-logo-mini-grey-1-1-copy.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:63:9)
+    at <unknown> (src/components/Gallery3D.tsx:161:17)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:160:30)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  61 |     >
+  62 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 63 |         <Image
+     |         ^
+  64 |           url={url}
+  65 |           scale={[3, 4]}
+  66 |           onPointerOver={() => hover(true)}

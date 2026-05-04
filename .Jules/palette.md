@@ -7,3 +7,7 @@
 ## 2024-05-24 - Accessibility in 3D Spaces
 **Learning:** 3D galleries (Three.js) are often "black boxes" for screen readers and keyboard users.
 **Action:** Use a hidden semantic list (`sr-only`) that mirrors the gallery content and wrap the canvas in a region with clear ARIA labels. Implement high-contrast `focus-visible` rings globally to ensure the interactive elements surrounding the canvas are easily navigable.
+
+## 2024-05-24 - 3D Loading UX & Asset Reliability
+**Learning:** A static "Initializing" message for 3D galleries is insufficient for good UX. Users need feedback during heavy asset loading (textures, geometries). Generic external placeholders (picsum) can lead to broken layouts if the service is throttled or down.
+**Action:** Implement a dynamic loading progress indicator using `@react-three/drei`'s `useProgress` with appropriate ARIA `role="progressbar"`. Ship local optimized assets as a "hero" fallback to guarantee a high-fidelity experience regardless of API availability.
