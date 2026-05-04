@@ -1,15 +1,30 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Gallery3D from '@/components/Gallery3D'
-import { getMedia, WPMedia } from '@/lib/wp'
+import { getPortfolio, WPPortfolioItem, WPMedia } from '@/lib/wp'
 
 export default async function PortfolioPage() {
   let images: WPMedia[] = []
 
   try {
-    images = await getMedia()
+    const portfolioItems: WPPortfolioItem[] = await getPortfolio()
+
+    // Map portfolio items to WPMedia format for compatibility with Gallery3D
+    images = portfolioItems.map(item => {
+      const featuredMedia = item._embedded?.['wp:featuredmedia']?.[0]
+      if (!featuredMedia) return null
+
+      return {
+        id: item.id,
+        source_url: featuredMedia.source_url,
+        title: item.title,
+        alt_text: featuredMedia.alt_text || item.title.rendered,
+        media_details: featuredMedia.media_details
+      } as WPMedia
+    }).filter(Boolean) as WPMedia[]
+
   } catch (error) {
-    console.error('Failed to fetch WordPress media:', error)
+    console.error('Failed to fetch WordPress portfolio:', error)
   }
 
   return (
@@ -81,7 +96,7 @@ export default async function PortfolioPage() {
                     <h3 className="mt-4 text-sm text-zinc-700 dark:text-zinc-300" dangerouslySetInnerHTML={{ __html: image.title.rendered }} />
                   </div>
                 )) : (
-                  <p className="text-sm text-zinc-500 italic col-span-full">No images found in WordPress media library. Showing placeholders in the 3D gallery.</p>
+                  <p className="text-sm text-zinc-500 italic col-span-full">No artwork found in portfolio. Showing fallback items in the 3D gallery.</p>
                 )}
               </div>
             </section>

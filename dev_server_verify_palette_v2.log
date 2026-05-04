@@ -37,3 +37,16 @@
     at Set.forEach (<anonymous>)
     at new Promise (<anonymous>)
     at Array.map (<anonymous>) (<anonymous>)
+✓ Compiled in 112ms
+ GET /portfolio 200 in 3.6s (next.js: 117ms, application-code: 3.4s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Cannot update a component (`Loader`) while rendering a different component (`ForwardRef`). To locate the bad setState() call inside `ForwardRef`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+    at Set.forEach (<anonymous>)
+    at new Promise (<anonymous>)
+    at Array.map (<anonymous>) (<anonymous>)
+[browser] Cannot update a component (`Loader`) while rendering a different component (`EnvironmentCube`). To locate the bad setState() call inside `EnvironmentCube`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+    at Set.forEach (<anonymous>)
+    at new Promise (<anonymous>)
+    at Array.map (<anonymous>) (<anonymous>)
+✓ Compiled in 131ms
+✓ Compiled in 337ms

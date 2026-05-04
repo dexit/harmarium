@@ -11,3 +11,7 @@
 ## 2025-05-04 - Asset Resilience
 **Learning:** WordPress media library can contain broken or external links (e.g., harmarium.com) that fail to load in THREE.js due to CORS or availability.
 **Action:** Implement a robust local fallback set and filter out problematic external URLs to prevent "Experience Temporarily Unavailable" states.
+
+## 2025-05-04 - Custom Portfolio Endpoint Integration
+**Learning:** The Harmarium WordPress setup uses a custom `portfolio` post type rather than the standard `posts` for artwork.
+**Action:** Use the `/wp/v2/portfolio?_embed` endpoint to retrieve artwork, as it includes the necessary `wp:featuredmedia` in the embedded response.

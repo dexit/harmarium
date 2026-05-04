@@ -81,10 +81,16 @@ function Rig() {
 
   useFrame((state) => {
     const angle = scroll.offset * Math.PI * 2
+    // Base position from scroll
     const targetX = Math.sin(angle) * 15
     const targetZ = Math.cos(angle) * 15
 
-    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, targetX, 0.05)
+    // Subtle mouse parallax sway
+    const parallaxX = state.pointer.x * 2
+    const parallaxY = state.pointer.y * 2
+
+    state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, targetX + parallaxX, 0.05)
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, parallaxY, 0.05)
     state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05)
     state.camera.lookAt(0, 0, 0)
   })
@@ -115,16 +121,21 @@ export default function Gallery3D({ images }: { images: WPMedia[] }) {
   }, [])
 
   const displayImages = useMemo(() => {
-    const wpImages = (images || []).filter(img => !img.source_url.includes('harmarium.com')).slice(0, 5)
-    const localSet = LOCAL_IMAGES.map((url, i) => ({
-      id: i + 1000,
-      source_url: url,
-      title: { rendered: 'Atrium Piece' },
-      alt_text: 'Atrium Piece',
-      media_details: { width: 800, height: 1000 }
-    } as WPMedia))
+    // Include all fetched images (up to 8) to prioritize the portfolio artwork
+    const wpImages = (images || []).slice(0, 8)
 
-    return [...localSet, ...wpImages]
+    // Fallback to local set if WP is empty
+    if (wpImages.length === 0) {
+      return LOCAL_IMAGES.map((url, i) => ({
+        id: i + 1000,
+        source_url: url,
+        title: { rendered: 'Atrium Piece' },
+        alt_text: 'Atrium Piece',
+        media_details: { width: 800, height: 1000 }
+      } as WPMedia))
+    }
+
+    return wpImages
   }, [images])
 
   if (!mounted) {
@@ -147,7 +158,7 @@ export default function Gallery3D({ images }: { images: WPMedia[] }) {
         <Canvas
           camera={{ position: [0, 0, 15], fov: 45 }}
           dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: false }}
+          gl={{ antialias: true, alpha: false, preserveDrawingBuffer: true }}
         >
           <color attach="background" args={['#020203']} />
           <fog attach="fog" args={['#020203', 10, 40]} />

@@ -37,6 +37,10 @@ export async function getMedia() {
   return fetchAPI('/wp/v2/media?per_page=20');
 }
 
+export async function getPortfolio() {
+  return fetchAPI('/wp/v2/portfolio?_embed&per_page=20');
+}
+
 export type WPMedia = {
   id: number;
   source_url: string;
@@ -45,5 +49,22 @@ export type WPMedia = {
   media_details: {
     width: number;
     height: number;
+  };
+};
+
+export type WPPortfolioItem = {
+  id: number;
+  title: { rendered: string };
+  slug: string;
+  _embedded?: {
+    'wp:featuredmedia'?: Array<{
+      id: number;
+      source_url: string;
+      alt_text: string;
+      media_details: {
+        width: number;
+        height: number;
+      };
+    }>;
   };
 };
