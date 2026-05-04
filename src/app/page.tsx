@@ -26,6 +26,11 @@ export default function Home() {
                 </Link>
               </li>
               <li>
+                <Link href="/gallery" className="text-sm font-medium hover:text-zinc-600 dark:hover:text-zinc-400">
+                  Gallery
+                </Link>
+              </li>
+              <li>
                 <Link href="/portfolio" className="text-sm font-medium hover:text-zinc-600 dark:hover:text-zinc-400">
                   Portfolio
                 </Link>
@@ -51,10 +56,10 @@ export default function Home() {
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <Link
-                href="/portfolio"
+                href="/gallery"
                 className="rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-zinc-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:text-black dark:hover:bg-zinc-200"
               >
-                View Portfolio
+                View Gallery
               </Link>
               <Link href="/contact" className="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">
                 Contact <span aria-hidden="true">→</span>
