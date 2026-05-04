@@ -1,23 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import type { GalleryArtwork } from './ImmersiveGallery3D'
 
 interface GallerySidePanelProps {
   artwork: GalleryArtwork | null
+  isOpen: boolean
   onClose: () => void
 }
 
-export function GallerySidePanel({ artwork, onClose }: GallerySidePanelProps) {
-  const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    if (artwork) {
-      setIsOpen(true)
-    } else {
-      setIsOpen(false)
-    }
-  }, [artwork])
+export function GallerySidePanel({ artwork, isOpen, onClose }: GallerySidePanelProps) {
 
   return (
     <>
@@ -51,7 +43,7 @@ export function GallerySidePanel({ artwork, onClose }: GallerySidePanelProps) {
             {/* Header - Terminal style */}
             <div className="sticky top-0 bg-black/80 border-b-2 border-yellow-400/30 px-6 py-4 flex items-center justify-between backdrop-blur">
               <div className="flex-1">
-                <p className="text-yellow-400 text-xs font-bold tracking-[0.3em] uppercase opacity-60">> ARTWORK DATA</p>
+                <p className="text-yellow-400 text-xs font-bold tracking-[0.3em] uppercase opacity-60">{'> ARTWORK DATA'}</p>
                 <h2 className="text-xl font-bold text-yellow-300 mt-1">{artwork.title}</h2>
               </div>
               <button
@@ -78,22 +70,22 @@ export function GallerySidePanel({ artwork, onClose }: GallerySidePanelProps) {
 
               {/* Category */}
               <div className="border-l-2 border-yellow-400/40 pl-4 py-2">
-                <p className="text-yellow-400/60 text-xs font-bold tracking-widest uppercase mb-1">[CATEGORY]</p>
-                <p className="text-yellow-300 font-mono">&gt; {artwork.category}</p>
+                <p className="text-yellow-400/60 text-xs font-bold tracking-widest uppercase mb-1">{'[CATEGORY]'}</p>
+                <p className="text-yellow-300 font-mono">{'>  '}{artwork.category}</p>
               </div>
 
               {/* Description */}
               <div className="border-l-2 border-yellow-400/40 pl-4 py-2">
-                <p className="text-yellow-400/60 text-xs font-bold tracking-widest uppercase mb-2">[ANALYSIS]</p>
-                <p className="text-yellow-200/80 leading-relaxed text-sm font-mono">&gt; {artwork.description}</p>
+                <p className="text-yellow-400/60 text-xs font-bold tracking-widest uppercase mb-2">{'[ANALYSIS]'}</p>
+                <p className="text-yellow-200/80 leading-relaxed text-sm font-mono">{'>  '}{artwork.description}</p>
               </div>
 
               {/* Position Info - Coordinates style */}
               <div className="border-l-2 border-yellow-400/40 pl-4 py-2 space-y-1">
-                <p className="text-yellow-400/60 text-xs font-bold tracking-widest uppercase mb-2">[SPATIAL COORDINATES]</p>
-                <p className="text-yellow-300/90 font-mono text-xs">&gt; X: <span className="text-yellow-400">{artwork.position[0].toFixed(2)}</span></p>
-                <p className="text-yellow-300/90 font-mono text-xs">&gt; Y: <span className="text-yellow-400">{artwork.position[1].toFixed(2)}</span></p>
-                <p className="text-yellow-300/90 font-mono text-xs">&gt; Z: <span className="text-yellow-400">{artwork.position[2].toFixed(2)}</span></p>
+                <p className="text-yellow-400/60 text-xs font-bold tracking-widest uppercase mb-2">{'[SPATIAL COORDINATES]'}</p>
+                <p className="text-yellow-300/90 font-mono text-xs">{'>  X: '}<span className="text-yellow-400">{artwork.position[0].toFixed(2)}</span></p>
+                <p className="text-yellow-300/90 font-mono text-xs">{'>  Y: '}<span className="text-yellow-400">{artwork.position[1].toFixed(2)}</span></p>
+                <p className="text-yellow-300/90 font-mono text-xs">{'>  Z: '}<span className="text-yellow-400">{artwork.position[2].toFixed(2)}</span></p>
               </div>
 
               {/* Action Buttons - Terminal style */}

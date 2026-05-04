@@ -11,15 +11,30 @@ interface GalleryControllerProps {
 }
 
 const WAYPOINTS: [number, number, number][] = [
-  [0, 1.6, 8],
-  [-6, 1.6, 5],
-  [-8, 1.6, -2],
-  [-4, 1.6, -8],
-  [0, 1.6, -8],
-  [4, 1.6, -8],
-  [8, 1.6, -4],
-  [8, 1.6, 3],
-  [0, 1.6, 10],
+  // Entrance hall
+  [0, 1.6, 0],
+  // Main portrait room
+  [-8, 1.6, -12],
+  [-2, 1.6, -12],
+  [4, 1.6, -12],
+  // Through west hallway to exhibition
+  [-23, 1.6, -5],
+  [-28, 1.6, 12],
+  [-22, 1.6, 12],
+  // Back to center
+  [-23, 1.6, 5],
+  // East hallway to digital sketches
+  [23, 1.6, -5],
+  [20, 1.6, -12],
+  [26, 1.6, -12],
+  // East hallway to sketch room
+  [23, 1.6, 5],
+  [20, 1.6, 12],
+  [26, 1.6, 12],
+  // Back hall
+  [0, 1.6, 20],
+  // Return to entrance
+  [0, 1.6, 0],
 ]
 
 export const GalleryController = ({
@@ -163,9 +178,9 @@ export const GalleryController = ({
 
         // Collision detection - keep within gallery bounds with buffer
         const margin = 0.5
-        camera.position.x = Math.max(-14 + margin, Math.min(14 - margin, camera.position.x))
-        camera.position.z = Math.max(-11 + margin, Math.min(11 - margin, camera.position.z))
-        camera.position.y = Math.max(0.3, Math.min(2.5, camera.position.y))
+        camera.position.x = Math.max(-35 + margin, Math.min(35 - margin, camera.position.x))
+        camera.position.z = Math.max(-25 + margin, Math.min(25 - margin, camera.position.z))
+        camera.position.y = Math.max(0.3, Math.min(3.8, camera.position.y))
       }
 
       // Apply camera rotation (mouse-based first-person view)
