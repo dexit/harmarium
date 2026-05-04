@@ -1,0 +1,39 @@
+
+> harmarium@0.1.0 dev /app
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env.local
+✓ Ready in 1302ms
+
+ GET /portfolio 200 in 4.2s (next.js: 810ms, application-code: 3.4s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Cannot update a component (`Loader`) while rendering a different component (`ForwardRef`). To locate the bad setState() call inside `ForwardRef`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+    at Set.forEach (<anonymous>)
+    at new Promise (<anonymous>)
+    at Array.map (<anonymous>) (<anonymous>)
+[browser] Uncaught Error: Could not load https://harmarium.com/wp-content/uploads/2025/02/IMG-9547-scaled-1.webp: undefined
+    at Frame (src/components/Gallery3D.tsx:63:9)
+    at <unknown> (src/components/Gallery3D.tsx:161:17)
+    at Array.map (<anonymous>)
+    at Gallery3D (src/components/Gallery3D.tsx:160:30)
+    at PortfolioPage (src/app/portfolio/page.tsx:65:13)
+  61 |     >
+  62 |       <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+> 63 |         <Image
+     |         ^
+  64 |           url={url}
+  65 |           scale={[3, 4]}
+  66 |           onPointerOver={() => hover(true)}
+ GET /portfolio 200 in 2.0s (next.js: 11ms, application-code: 2.0s)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Cannot update a component (`Loader`) while rendering a different component (`ForwardRef`). To locate the bad setState() call inside `ForwardRef`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+    at Set.forEach (<anonymous>)
+    at new Promise (<anonymous>)
+    at Array.map (<anonymous>) (<anonymous>)
+[browser] Cannot update a component (`Loader`) while rendering a different component (`EnvironmentCube`). To locate the bad setState() call inside `EnvironmentCube`, follow the stack trace as described in https://react.dev/link/setstate-in-render
+    at Set.forEach (<anonymous>)
+    at new Promise (<anonymous>)
+    at Array.map (<anonymous>) (<anonymous>)
