@@ -1,0 +1,63 @@
+/* ── Harmarium Extensions — block styles ── */
+
+/* Gallery Hallway */
+.hm-gallery-hallway { position: relative; height: var(--hm-hallway-height, 600px); }
+.hm-gallery-hallway__eyebrow { text-align: center; margin-bottom: 1rem; }
+.hm-gallery-hallway__viewport { position: sticky; top: 0; width: 100%; z-index: 1; background: #f0ebe3; overflow: hidden; }
+.hm-gallery-hallway__canvas { display: block; width: 100%; height: auto; }
+.hm-gallery-hallway__overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.hm-gallery-hallway__loading { display: flex; align-items: center; gap: .75rem; font-size: .875rem; color: #666; }
+.hm-gallery-hallway__spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid #ccc; border-top-color: #888; border-radius: 50%; animation: hm-spin .7s linear infinite; }
+.hm-gallery-hallway__tooltip { position: absolute; background: rgba(20,15,10,.82); color: #fff; font-size: .75rem; padding: 4px 10px; border-radius: 4px; pointer-events: none; transform: translateX(-50%); white-space: nowrap; z-index: 10; }
+.hm-gallery-hallway__hint { text-align: center; font-size: var(--wp--preset--font-size--xs, .75rem); font-family: var(--wp--preset--font-family--mono, monospace); letter-spacing: .1em; text-transform: uppercase; color: var(--wp--preset--color--ash, #888); margin-top: 1rem; }
+
+
+
+/* Artwork meta */
+.hm-artwork-meta { display: grid; grid-template-columns: auto 1fr; gap: .25rem 1.25rem; font-size: var(--wp--preset--font-size--sm, .875rem); line-height: 1.5; }
+.hm-artwork-meta dt { font-family: var(--wp--preset--font-family--mono, monospace); font-size: .7rem; font-weight: 500; text-transform: uppercase; letter-spacing: .12em; color: var(--wp--preset--color--ash, #888); align-self: center; white-space: nowrap; }
+.hm-artwork-meta dd { margin: 0; }
+.hm-artwork-price { font-size: var(--wp--preset--font-size--lg, 1.25rem); font-family: var(--wp--preset--font-family--display, serif); }
+
+.hm-avail-badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+.hm-avail-available { background: #dcfce7; color: #166534; }
+.hm-avail-sold      { background: #fee2e2; color: #991b1b; }
+.hm-avail-reserved  { background: #fef9c3; color: #854d0e; }
+.hm-avail-nfs       { background: #f1f5f9; color: #475569; }
+
+/* QR code */
+.hm-qr-code { display: inline-flex; flex-direction: column; align-items: center; gap: .5rem; }
+.hm-qr-code svg { max-width: 100%; height: auto; }
+.hm-qr-code figcaption { font-size: var(--wp--preset--font-size--xs, .75rem); font-family: var(--wp--preset--font-family--mono, monospace); text-transform: uppercase; letter-spacing: .1em; color: var(--wp--preset--color--ash, #888); }
+
+/* Commission form */
+.hm-commission-form { max-width: 640px; }
+.hm-commission-form__heading { margin-bottom: .5rem; }
+.hm-commission-form__sub { color: var(--wp--preset--color--graphite, #555); margin-bottom: 1.5rem; }
+.hm-commission-form__form { display: flex; flex-direction: column; gap: 1rem; }
+.hm-commission-form__row--2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 560px) { .hm-commission-form__row--2col { grid-template-columns: 1fr; } }
+.hm-commission-form__field { display: flex; flex-direction: column; gap: .35rem; font-size: .875rem; }
+.hm-commission-form__field span { font-family: var(--wp--preset--font-family--mono, monospace); font-size: .7rem; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: var(--wp--preset--color--graphite, #555); }
+.hm-commission-form__field abbr { color: var(--wp--preset--color--vermilion, #c0392b); text-decoration: none; }
+.hm-commission-form__field input,
+.hm-commission-form__field textarea { width: 100%; padding: .65rem .875rem; border: 1px solid var(--wp--preset--color--ash, #ddd); border-radius: 4px; background: var(--wp--preset--color--paper, #fff); font-family: inherit; font-size: 1rem; transition: border-color .2s; }
+.hm-commission-form__field input:focus,
+.hm-commission-form__field textarea:focus { outline: none; border-color: var(--wp--preset--color--ink, #1a1a1a); box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
+.hm-commission-form__spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: hm-spin .6s linear infinite; }
+@keyframes hm-spin { to { transform: rotate(360deg); } }
+.hm-commission-form__feedback { font-size: .875rem; padding: .75rem 1rem; border-radius: 4px; display: none; }
+.hm-commission-form__feedback:not(:empty) { display: block; }
+.hm-commission-form__feedback.is-success { background: #dcfce7; color: #166534; }
+.hm-commission-form__feedback.is-error   { background: #fee2e2; color: #991b1b; }
+
+/* Artwork spotlight */
+.hm-artwork-spotlight { display: grid; grid-template-columns: 1fr 1fr; gap: var(--wp--preset--spacing--60, 4rem); align-items: center; }
+.hm-artwork-spotlight.hm-spotlight--reversed .hm-spotlight__media { order: 2; }
+@media (max-width: 768px) { .hm-artwork-spotlight { grid-template-columns: 1fr; } .hm-artwork-spotlight.hm-spotlight--reversed .hm-spotlight__media { order: 0; } }
+.hm-spotlight__media img { width: 100%; height: auto; display: block; }
+.hm-spotlight__type { margin-bottom: .5rem; }
+.hm-spotlight__title { font-size: var(--wp--preset--font-size--xl, 2rem); font-weight: 400; margin-bottom: .5rem; }
+.hm-spotlight__title a { text-decoration: none; color: inherit; }
+.hm-spotlight__meta { font-size: .875rem; color: var(--wp--preset--color--graphite, #666); margin-bottom: 1rem; }
+.hm-spotlight__excerpt { font-style: italic; margin-bottom: 1.5rem; font-family: var(--wp--preset--font-family--display, serif); }

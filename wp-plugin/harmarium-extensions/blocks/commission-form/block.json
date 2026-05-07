@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "harmarium/commission-form",
+  "version": "1.0.0",
+  "title": "Commission Request Form",
+  "category": "harmarium",
+  "icon": "email",
+  "description": "A styled commission/quote request form that submits to the harmarium/v1/commission REST endpoint.",
+  "keywords": ["commission", "quote", "contact", "form"],
+  "textdomain": "harmarium-ext",
+  "supports": { "html": false, "align": ["wide", "full"] },
+  "attributes": {
+    "heading":      { "type": "string",  "default": "Commission a portrait" },
+    "subheading":   { "type": "string",  "default": "Tell me about the piece you have in mind and I'll get back to you within 2–3 working days." },
+    "showBudget":   { "type": "boolean", "default": true },
+    "showTimeline": { "type": "boolean", "default": true }
+  },
+  "viewScript": "file:./view.js",
+  "render": "file:./render.php"
+}

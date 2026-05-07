@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "harmarium/qr-code",
+  "version": "1.0.0",
+  "title": "QR Code",
+  "category": "harmarium",
+  "icon": "smartphone",
+  "description": "Renders a QR code linking to this post (or a custom URL). Uses the built-in pure-PHP SVG generator.",
+  "keywords": ["qr", "scan", "link"],
+  "textdomain": "harmarium-ext",
+  "usesContext": ["postId"],
+  "supports": { "html": false, "align": ["center", "left", "right"] },
+  "attributes": {
+    "customUrl": { "type": "string",  "default": "" },
+    "size":      { "type": "integer", "default": 160 },
+    "label":     { "type": "string",  "default": "Scan to view" },
+    "showLabel": { "type": "boolean", "default": true }
+  },
+  "render": "file:./render.php"
+}
