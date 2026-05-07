@@ -1,0 +1,54 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"exhibition-page","layout":{"type":"constrained","contentSize":"720px","wideSize":"1440px"}} -->
+<main class="wp-block-group exhibition-page">
+
+  <!-- wp:cover {"isUserOverlayColor":true,"overlayColor":"ink","minHeight":68,"minHeightUnit":"vh","contentPosition":"bottom left","align":"full"} -->
+  <div class="wp-block-cover alignfull has-custom-content-position is-position-bottom-left" style="min-height:68vh">
+    <span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-60 has-background-dim"></span>
+    <!-- wp:post-featured-image {"dimRatio":40,"isLink":false,"className":"exhibition-page__hero"} /-->
+    <div class="wp-block-cover__inner-container">
+      <!-- wp:post-terms {"term":"category","textColor":"ochre","className":"is-style-harmarium-eyebrow"} /-->
+      <!-- wp:post-title {"level":1,"textColor":"paper","style":{"typography":{"fontSize":"var:preset|font-size|hero","lineHeight":"1"}}} /-->
+      <!-- wp:post-excerpt {"textColor":"paper","style":{"typography":{"fontSize":"var:preset|font-size|lg","fontFamily":"var:preset|font-family|display","fontStyle":"italic"}}} /-->
+    </div>
+  </div>
+  <!-- /wp:cover -->
+
+  <!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"720px"}} -->
+  <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+    <!-- wp:post-content /-->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:group {"align":"full","backgroundColor":"canvas","className":"exhibition-wall","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|70","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+  <div class="wp-block-group alignfull exhibition-wall has-canvas-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--40)" data-harmarium-exhibition>
+    <!-- wp:heading {"textAlign":"center","level":6,"className":"is-style-harmarium-eyebrow"} -->
+    <h6 class="wp-block-heading has-text-align-center is-style-harmarium-eyebrow">The wall</h6>
+    <!-- /wp:heading -->
+    <!-- wp:heading {"textAlign":"center","level":2} -->
+    <h2 class="wp-block-heading has-text-align-center">Step inside the exhibition</h2>
+    <!-- /wp:heading -->
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">Use the cursor to pan, scroll to zoom. Click any work to view it in detail.</p>
+    <!-- /wp:paragraph -->
+
+    <div class="harmarium-wall" data-harmarium-wall>
+      <div class="harmarium-wall__viewport">
+        <div class="harmarium-wall__plane" data-harmarium-wall-plane>
+          <!-- works are injected from PHP via the bound script -->
+        </div>
+      </div>
+      <div class="harmarium-wall__controls">
+        <button type="button" data-harmarium-wall-control="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" data-harmarium-wall-control="reset"     aria-label="Reset view">⟲</button>
+        <button type="button" data-harmarium-wall-control="zoom-in"  aria-label="Zoom in">+</button>
+      </div>
+    </div>
+  </div>
+  <!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

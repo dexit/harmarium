@@ -1,0 +1,51 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1320px"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60)">
+  <!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|30"}}} -->
+  <div class="wp-block-group">
+    <!-- wp:post-terms {"term":"category","className":"is-style-harmarium-eyebrow"} /-->
+    <!-- wp:post-title {"level":1} /-->
+    <!-- wp:post-date {"style":{"typography":{"fontSize":"var:preset|font-size|sm"}}} /-->
+  </div>
+  <!-- /wp:group -->
+
+  <!-- wp:post-featured-image {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|50"}}}} /-->
+
+  <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+  <!-- wp:separator /-->
+
+  <!-- wp:post-navigation-link {"type":"previous","showTitle":true} /-->
+  <!-- wp:post-navigation-link {"showTitle":true} /-->
+
+  <!-- wp:comments -->
+    <!-- wp:comments-title {"level":3} /-->
+    <!-- wp:comment-template -->
+      <!-- wp:columns -->
+      <div class="wp-block-columns">
+        <!-- wp:column {"width":"40px"} -->
+        <div class="wp-block-column" style="flex-basis:40px"><!-- wp:avatar {"size":40} /--></div>
+        <!-- /wp:column -->
+        <!-- wp:column -->
+        <div class="wp-block-column">
+          <!-- wp:comment-author-name /-->
+          <!-- wp:comment-date /-->
+          <!-- wp:comment-content /-->
+          <!-- wp:comment-reply-link /-->
+        </div>
+        <!-- /wp:column -->
+      </div>
+      <!-- /wp:columns -->
+    <!-- /wp:comment-template -->
+    <!-- wp:comments-pagination -->
+      <!-- wp:comments-pagination-previous /-->
+      <!-- wp:comments-pagination-numbers /-->
+      <!-- wp:comments-pagination-next /-->
+    <!-- /wp:comments-pagination -->
+    <!-- wp:post-comments-form /-->
+  <!-- /wp:comments -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

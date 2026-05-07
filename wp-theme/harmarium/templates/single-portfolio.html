@@ -1,0 +1,75 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"artwork-page","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1440px"}} -->
+<main class="wp-block-group artwork-page" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60)">
+
+  <!-- wp:columns {"align":"wide","verticalAlignment":"top","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|60"}}}} -->
+  <div class="wp-block-columns alignwide are-vertically-aligned-top">
+
+    <!-- wp:column {"width":"60%","verticalAlignment":"top"} -->
+    <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:60%">
+      <!-- wp:post-featured-image {"className":"artwork-page__image","style":{"shadow":"var:preset|shadow|frame"},"sizeSlug":"full","data-harmarium-zoomable":true} /-->
+    </div>
+    <!-- /wp:column -->
+
+    <!-- wp:column {"verticalAlignment":"top","style":{"position":{"type":"sticky","top":"96px"}}} -->
+    <div class="wp-block-column is-vertically-aligned-top" style="position:sticky;top:96px">
+      <!-- wp:post-terms {"term":"artwork_type","className":"is-style-harmarium-eyebrow","style":{"typography":{"fontSize":"var:preset|font-size|xs","letterSpacing":"0.18em","textTransform":"uppercase"}}} /-->
+
+      <!-- wp:post-title {"level":1,"style":{"typography":{"fontSize":"var:preset|font-size|xxl","fontWeight":"400","lineHeight":"1.05"},"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|30"}}}} /-->
+
+      <!-- wp:post-excerpt {"style":{"typography":{"fontSize":"var:preset|font-size|lg","fontStyle":"italic","fontFamily":"var:preset|font-family|display"}}} /-->
+
+      <!-- wp:separator {"backgroundColor":"ash"} -->
+      <hr class="wp-block-separator has-text-color has-ash-background-color has-alpha-channel-opacity has-background"/>
+      <!-- /wp:separator -->
+
+      <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+      <!-- wp:group {"className":"artwork-page__taxonomy","layout":{"type":"flex","flexWrap":"wrap"}} -->
+      <div class="wp-block-group artwork-page__taxonomy">
+        <!-- wp:post-terms {"term":"portfolio_category","prefix":"Category: "} /-->
+        <!-- wp:post-terms {"term":"portfolio_tag","prefix":"Tags: "} /-->
+      </div>
+      <!-- /wp:group -->
+
+      <!-- wp:buttons {"layout":{"type":"flex","flexWrap":"wrap"}} -->
+      <div class="wp-block-buttons">
+        <!-- wp:button -->
+        <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/commission">Commission similar</a></div>
+        <!-- /wp:button -->
+        <!-- wp:button {"className":"is-style-harmarium-ghost"} -->
+        <div class="wp-block-button is-style-harmarium-ghost"><a class="wp-block-button__link wp-element-button" href="/shop">Visit gallery shop</a></div>
+        <!-- /wp:button -->
+      </div>
+      <!-- /wp:buttons -->
+    </div>
+    <!-- /wp:column -->
+  </div>
+  <!-- /wp:columns -->
+
+  <!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|70"}}},"layout":{"type":"constrained","contentSize":"1320px"}} -->
+  <div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--70)">
+    <!-- wp:heading {"level":3,"className":"is-style-harmarium-eyebrow","style":{"typography":{"fontSize":"var:preset|font-size|xs","letterSpacing":"0.18em","textTransform":"uppercase"}}} -->
+    <h3 class="wp-block-heading is-style-harmarium-eyebrow" style="font-size:var(--wp--preset--font-size--xs);letter-spacing:0.18em;text-transform:uppercase">More from this collection</h3>
+    <!-- /wp:heading -->
+
+    <!-- wp:query {"queryId":42,"query":{"perPage":4,"postType":"portfolio","order":"desc","orderBy":"date","exclude":[],"taxQuery":{"portfolio_category":[]}},"align":"wide"} -->
+    <div class="wp-block-query alignwide">
+      <!-- wp:post-template {"layout":{"type":"grid","columnCount":4}} -->
+        <!-- wp:group {"className":"is-style-harmarium-card"} -->
+        <div class="wp-block-group is-style-harmarium-card">
+          <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/5","className":"is-style-harmarium-zoom"} /-->
+          <!-- wp:post-title {"isLink":true,"level":4} /-->
+        </div>
+        <!-- /wp:group -->
+      <!-- /wp:post-template -->
+    </div>
+    <!-- /wp:query -->
+  </div>
+  <!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
