@@ -71,6 +71,7 @@ function harmarium_enqueue_assets() {
 	wp_localize_script( 'harmarium-interactive', 'HarmariumData', array(
 		'restUrl'    => esc_url_raw( rest_url( 'wp/v2/' ) ),
 		'scenesBase' => esc_url_raw( HARMARIUM_URI . '/assets/images/scenes/' ),
+		'postId'     => get_queried_object_id(),
 		'nonce'      => wp_create_nonce( 'wp_rest' ),
 		'i18n'    => array(
 			'close'    => __( 'Close', 'harmarium' ),

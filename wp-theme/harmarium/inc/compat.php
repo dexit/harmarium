@@ -46,9 +46,12 @@ add_action( 'wp_enqueue_scripts', function () {
 		return;
 	}
 	$post_id = get_queried_object_id();
-	if ( $post_id && class_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::$instance->documents->get( $post_id ) && \Elementor\Plugin::$instance->documents->get( $post_id )->is_built_with_elementor() ) {
-		wp_add_inline_style( 'harmarium-main', '.is-elementor-page :where(body){--wp--style--root--padding-left:0;--wp--style--root--padding-right:0}' );
-		add_filter( 'body_class', function ( $c ) { $c[] = 'is-elementor-page'; return $c; } );
+	if ( $post_id && class_exists( '\Elementor\Plugin' ) ) {
+		$document = \Elementor\Plugin::$instance->documents->get( $post_id );
+		if ( $document && $document->is_built_with_elementor() ) {
+			wp_add_inline_style( 'harmarium-main', '.is-elementor-page :where(body){--wp--style--root--padding-left:0;--wp--style--root--padding-right:0}' );
+			add_filter( 'body_class', function ( $c ) { $c[] = 'is-elementor-page'; return $c; } );
+		}
 	}
 }, 30 );
 

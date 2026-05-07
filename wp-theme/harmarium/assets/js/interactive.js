@@ -100,6 +100,8 @@
       if (!cfgEl) return;
       let cfg;
       try { cfg = JSON.parse(cfgEl.textContent); } catch (e) { return; }
+      // Store a deep copy of the initial config so reset can restore it.
+      const initialCfg = JSON.parse(JSON.stringify(cfg));
       const stage  = $('.harmarium-mockup__stage', root);
       const scene  = $('.harmarium-mockup__scene', root);
       const art    = $('[data-harmarium-art]', root);
@@ -113,31 +115,48 @@
       }
       place();
 
+      function resetMockup() {
+        Object.assign(cfg, initialCfg);
+        scene.src = initialCfg.scene;
+        $$('[data-harmarium-control]', root).forEach((ctrl) => {
+          const kind = ctrl.dataset.harmariumControl;
+          if (kind === 'scene' && ctrl.tagName === 'SELECT') ctrl.value = initialCfg.sceneKey;
+          if (kind === 'frame' && ctrl.tagName === 'SELECT') ctrl.value = initialCfg.frame;
+          if (kind === 'scale') ctrl.value = initialCfg.scale;
+        });
+        place();
+      }
+
       $$('[data-harmarium-control]', root).forEach((ctrl) => {
         const kind = ctrl.dataset.harmariumControl;
-        ctrl.addEventListener(ctrl.tagName === 'SELECT' ? 'change' : 'input', () => {
+        const evName = ctrl.tagName === 'SELECT' ? 'change' : (kind === 'reset' ? 'click' : 'input');
+        ctrl.addEventListener(evName, () => {
           if (kind === 'scene') {
             cfg.sceneKey = ctrl.value;
-            // resolve via WP-uploaded scenes folder
-            const url = (window.HarmariumData && window.HarmariumData.scenesBase) || '';
-            scene.src = url ? url + ctrl.value + '.jpg' : scene.src.replace(/[^/]+\.jpg$/, ctrl.value + '.jpg');
+            const base = (window.HarmariumData && window.HarmariumData.scenesBase) || '';
+            scene.src = base ? base + ctrl.value + '.jpg' : scene.src.replace(/[^/]+\.jpg$/, ctrl.value + '.jpg');
           } else if (kind === 'frame') {
             cfg.frame = ctrl.value; art.dataset.frame = cfg.frame;
           } else if (kind === 'scale') {
             cfg.scale = parseFloat(ctrl.value);
             art.style.width = (cfg.scale * 100) + '%';
           } else if (kind === 'reset') {
-            location.reload();
+            resetMockup();
           }
         });
       });
 
-      // Drag to reposition (desktop only).
-      let dragging = false;
-      art.addEventListener('pointerdown', (e) => { dragging = true; art.setPointerCapture(e.pointerId); art.style.transition = 'none'; });
-      art.addEventListener('pointerup',   (e) => { dragging = false; art.releasePointerCapture(e.pointerId); art.style.transition = ''; });
+      // Drag to reposition — all listeners scoped to art element via pointer capture.
+      art.addEventListener('pointerdown', (e) => {
+        art.setPointerCapture(e.pointerId);
+        art.style.transition = 'none';
+      });
+      art.addEventListener('pointerup', (e) => {
+        art.releasePointerCapture(e.pointerId);
+        art.style.transition = '';
+      });
       art.addEventListener('pointermove', (e) => {
-        if (!dragging) return;
+        if (!art.hasPointerCapture(e.pointerId)) return;
         const r = stage.getBoundingClientRect();
         cfg.x = Math.min(0.95, Math.max(0.05, (e.clientX - r.left) / r.width));
         cfg.y = Math.min(0.95, Math.max(0.05, (e.clientY - r.top) / r.height));
@@ -152,10 +171,12 @@
     $$('[data-harmarium-wall]').forEach(async (wall) => {
       const plane = $('[data-harmarium-wall-plane]', wall);
       if (!plane) return;
-      const exhibitionId = parseInt(document.body.className.match(/postid-(\d+)/)?.[1] || '0', 10);
+      // Use PHP-provided post ID for reliability rather than body class parsing.
+      const exhibitionId = window.HarmariumData && window.HarmariumData.postId ? parseInt(window.HarmariumData.postId, 10) : 0;
       if (!exhibitionId || !window.HarmariumData) return;
       try {
         const res = await fetch(window.HarmariumData.restUrl + 'exhibition/' + exhibitionId);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         const items = data?.harmarium?.items || [];
         items.forEach((it, i) => {
@@ -167,15 +188,28 @@
           a.innerHTML = `<img loading="lazy" src="${it.thumb}" alt=""><figcaption>${it.title}</figcaption>`;
           plane.appendChild(a);
         });
-      } catch (e) { /* silent */ }
+      } catch (e) {
+        console.error('Harmarium: failed to load exhibition items:', e);
+      }
 
-      // Pan + zoom.
-      let scale = 1, tx = 0, ty = 0, dragging = false, sx = 0, sy = 0;
+      // Pan + zoom — window listeners removed on pointerup to prevent leaks.
+      let scale = 1, tx = 0, ty = 0, sx = 0, sy = 0;
       function apply() { plane.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
+
+      function onMove(e) { tx = e.clientX - sx; ty = e.clientY - sy; apply(); }
+      function onUp() {
+        wall.style.cursor = '';
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+      }
+
       wall.addEventListener('wheel', (e) => { e.preventDefault(); scale = Math.min(2.4, Math.max(.5, scale - e.deltaY * 0.0015)); apply(); }, { passive: false });
-      wall.addEventListener('pointerdown', (e) => { dragging = true; sx = e.clientX - tx; sy = e.clientY - ty; });
-      window.addEventListener('pointerup',   () => { dragging = false; });
-      window.addEventListener('pointermove', (e) => { if (!dragging) return; tx = e.clientX - sx; ty = e.clientY - sy; apply(); });
+      wall.addEventListener('pointerdown', (e) => {
+        sx = e.clientX - tx; sy = e.clientY - ty;
+        wall.style.cursor = 'grabbing';
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onUp);
+      });
       wall.addEventListener('click', (e) => {
         const ctrl = e.target.closest('[data-harmarium-wall-control]');
         if (!ctrl) return;

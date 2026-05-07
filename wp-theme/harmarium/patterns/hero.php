@@ -9,7 +9,7 @@
 <!-- wp:cover {"isUserOverlayColor":true,"overlayColor":"ink","minHeight":92,"minHeightUnit":"vh","contentPosition":"center center","align":"full","style":{"color":{"duotone":"var:preset|duotone|ink-canvas"}}} -->
 <div class="wp-block-cover alignfull" style="min-height:92vh">
   <span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-30 has-background-dim"></span>
-  <img class="wp-block-cover__image-background" alt="" src="https://harmarium.com/wp-content/uploads/2025/02/IMG_1160-2111090225.jpg" data-object-fit="cover" />
+  <img class="wp-block-cover__image-background" alt="" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hero-background.jpg' ); ?>" data-object-fit="cover" />
   <div class="wp-block-cover__inner-container">
     <!-- wp:heading {"textAlign":"center","level":6,"className":"is-style-harmarium-eyebrow","textColor":"ochre"} -->
     <h6 class="wp-block-heading has-text-align-center is-style-harmarium-eyebrow has-ochre-color has-text-color"><?php echo esc_html__( 'Harmarium · Portrait Art', 'harmarium' ); ?></h6>

@@ -87,9 +87,9 @@ function harmarium_exhibition_metabox_render( $post ) {
 
 	$portfolio = get_posts( array(
 		'post_type'      => 'portfolio',
-		'posts_per_page' => 200,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
+		'posts_per_page' => -1,
+		'orderby'        => 'title',
+		'order'          => 'ASC',
 	) );
 
 	echo '<p><strong>' . esc_html__( 'Portfolio items in this exhibition (drag to reorder):', 'harmarium' ) . '</strong></p>';

@@ -1,5 +1,5 @@
 /* Editor-side parity for the front end. */
 .editor-styles-wrapper { background: var(--wp--preset--color--canvas); color: var(--wp--preset--color--ink); }
 .editor-styles-wrapper h1, .editor-styles-wrapper h2, .editor-styles-wrapper h3 { font-family: var(--wp--preset--font-family--display); }
-.is-style-harmarium-eyebrow { font-family: var(--wp--preset--font-family--mono) !important; text-transform: uppercase; letter-spacing: .18em; font-size: .8125rem; color: var(--wp--preset--color--ash); }
+.is-style-harmarium-eyebrow { font-family: var(--wp--preset--font-family--mono) !important; font-size: var(--wp--preset--font-size--xs) !important; font-weight: 500 !important; text-transform: uppercase !important; letter-spacing: .18em !important; color: var(--wp--preset--color--ash); }
 .is-style-harmarium-card { background: var(--wp--preset--color--paper); padding: 1rem; border-radius: 4px; box-shadow: 0 12px 32px -16px rgba(0,0,0,.25); }

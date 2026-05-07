@@ -137,7 +137,7 @@ add_action( 'woocommerce_product_data_panels', function () {
 	$y          = get_post_meta( $post->ID, '_harmarium_mockup_y', true ) ?: 0.45;
 	$image_id   = (int) get_post_meta( $post->ID, '_harmarium_mockup_image', true );
 
-	$portfolio = get_posts( array( 'post_type' => 'portfolio', 'posts_per_page' => 200, 'orderby' => 'date', 'order' => 'DESC' ) );
+	$portfolio = get_posts( array( 'post_type' => 'portfolio', 'posts_per_page' => -1, 'orderby' => 'title', 'order' => 'ASC' ) );
 
 	echo '<div id="harmarium_mockup_data" class="panel woocommerce_options_panel">';
 	echo '<p class="form-field"><label for="_harmarium_artwork_id">' . esc_html__( 'Linked artwork', 'harmarium' ) . '</label>';
@@ -166,20 +166,62 @@ add_action( 'woocommerce_product_data_panels', function () {
 	woocommerce_wp_text_input( array( 'id' => '_harmarium_mockup_x',      'label' => __( 'X position (0–1)',    'harmarium' ), 'type' => 'number', 'value' => $x,     'custom_attributes' => array( 'step' => '0.01', 'min' => '0', 'max' => '1' ) ) );
 	woocommerce_wp_text_input( array( 'id' => '_harmarium_mockup_y',      'label' => __( 'Y position (0–1)',    'harmarium' ), 'type' => 'number', 'value' => $y,     'custom_attributes' => array( 'step' => '0.01', 'min' => '0', 'max' => '1' ) ) );
 
-	echo '<p class="form-field"><label>' . esc_html__( 'Custom scene image', 'harmarium' ) . '</label>';
-	echo '<input type="number" name="_harmarium_mockup_image" value="' . esc_attr( $image_id ) . '" /> ';
-	echo '<span class="description">' . esc_html__( 'Optional: media library attachment ID. Overrides the scene above.', 'harmarium' ) . '</span></p>';
+	$preview_url = $image_id ? wp_get_attachment_image_url( $image_id, 'thumbnail' ) : '';
+	echo '<p class="form-field harmarium-media-picker"><label>' . esc_html__( 'Custom scene image', 'harmarium' ) . '</label>';
+	echo '<span class="harmarium-media-picker__wrap">';
+	if ( $preview_url ) {
+		echo '<img src="' . esc_url( $preview_url ) . '" style="max-width:120px;height:auto;display:block;margin-bottom:.5rem" />';
+	}
+	echo '<input type="hidden" name="_harmarium_mockup_image" id="_harmarium_mockup_image" value="' . esc_attr( $image_id ) . '" />';
+	echo '<button type="button" class="button harmarium-media-picker__choose">' . esc_html__( 'Choose image', 'harmarium' ) . '</button> ';
+	echo '<button type="button" class="button harmarium-media-picker__remove"' . ( $image_id ? '' : ' style="display:none"' ) . '>' . esc_html__( 'Remove', 'harmarium' ) . '</button>';
+	echo '<span class="description">' . esc_html__( 'Optional custom room/scene. Overrides the preset above.', 'harmarium' ) . '</span></span></p>';
 	echo '</div>';
+
+	// Inline script — runs once inside the product editor panel.
+	?>
+	<script>
+	jQuery(function($){
+		$('.harmarium-media-picker__choose').on('click', function(){
+			var $wrap = $(this).closest('.harmarium-media-picker__wrap');
+			var frame = wp.media({ title: '<?php echo esc_js( __( 'Choose scene image', 'harmarium' ) ); ?>', button: { text: '<?php echo esc_js( __( 'Use this image', 'harmarium' ) ); ?>' }, multiple: false });
+			frame.on('select', function(){
+				var att = frame.state().get('selection').first().toJSON();
+				$wrap.find('input[type="hidden"]').val(att.id);
+				$wrap.find('.harmarium-media-picker__remove').show();
+				var preview = $wrap.find('img');
+				var url = att.sizes && att.sizes.thumbnail ? att.sizes.thumbnail.url : att.url;
+				if (!preview.length) { $wrap.prepend('<img src="' + url + '" style="max-width:120px;height:auto;display:block;margin-bottom:.5rem" />'); } else { preview.attr('src', url); }
+			});
+			frame.open();
+		});
+		$('.harmarium-media-picker__remove').on('click', function(){
+			var $wrap = $(this).closest('.harmarium-media-picker__wrap');
+			$wrap.find('input[type="hidden"]').val('');
+			$wrap.find('img').remove();
+			$(this).hide();
+		});
+	});
+	</script>
+	<?php
 } );
 
 add_action( 'woocommerce_process_product_meta', function ( $post_id ) {
-	$keys = array(
-		'_harmarium_artwork_id', '_harmarium_mockup_scene', '_harmarium_mockup_frame',
-		'_harmarium_mockup_mat', '_harmarium_mockup_width', '_harmarium_mockup_height',
-		'_harmarium_mockup_scale', '_harmarium_mockup_x', '_harmarium_mockup_y',
-		'_harmarium_mockup_image',
-	);
-	foreach ( $keys as $key ) {
+	$int_keys   = array( '_harmarium_artwork_id', '_harmarium_mockup_image' );
+	$float_keys = array( '_harmarium_mockup_mat', '_harmarium_mockup_width', '_harmarium_mockup_height', '_harmarium_mockup_scale', '_harmarium_mockup_x', '_harmarium_mockup_y' );
+	$text_keys  = array( '_harmarium_mockup_scene', '_harmarium_mockup_frame' );
+
+	foreach ( $int_keys as $key ) {
+		if ( isset( $_POST[ $key ] ) ) {
+			update_post_meta( $post_id, $key, (int) $_POST[ $key ] );
+		}
+	}
+	foreach ( $float_keys as $key ) {
+		if ( isset( $_POST[ $key ] ) ) {
+			update_post_meta( $post_id, $key, (float) wp_unslash( $_POST[ $key ] ) );
+		}
+	}
+	foreach ( $text_keys as $key ) {
 		if ( isset( $_POST[ $key ] ) ) {
 			update_post_meta( $post_id, $key, sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) );
 		}

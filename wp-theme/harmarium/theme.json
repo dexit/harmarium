@@ -43,16 +43,7 @@
         {
           "slug": "display",
           "name": "Display",
-          "fontFamily": "\"Cormorant Garamond\", \"Playfair Display\", Georgia, serif",
-          "fontFace": [
-            {
-              "fontFamily": "Cormorant Garamond",
-              "fontStyle": "normal",
-              "fontWeight": "300 700",
-              "src": ["file:./assets/fonts/cormorant-garamond.woff2"],
-              "fontDisplay": "swap"
-            }
-          ]
+          "fontFamily": "\"Cormorant Garamond\", \"Playfair Display\", Georgia, serif"
         },
         {
           "slug": "sans",
