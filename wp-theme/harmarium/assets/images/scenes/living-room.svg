@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="wall-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F0E6D3"/><stop offset="100%" stop-color="#E8D9C0"/></linearGradient>
+    <linearGradient id="floor-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C8AF91"/><stop offset="100%" stop-color="#B09272"/></linearGradient>
+    <linearGradient id="ceil-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,0,0,.22)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></linearGradient>
+    <linearGradient id="beam-g" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(255,235,180,.12)"/><stop offset="100%" stop-color="rgba(255,235,180,0)"/></linearGradient>
+    <filter id="sof-sh"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity=".18"/></filter>
+  </defs>
+  <!-- Wall -->
+  <rect width="1600" height="692" fill="url(#wall-g)"/>
+  <!-- Ceiling shadow -->
+  <rect width="1600" height="70" fill="url(#ceil-g)"/>
+  <!-- Floor -->
+  <rect y="692" width="1600" height="208" fill="url(#floor-g)"/>
+  <!-- Baseboard -->
+  <rect y="680" width="1600" height="12" fill="#C8AF8E" opacity=".9"/>
+  <!-- Window left -->
+  <rect x="44" y="55" width="172" height="580" rx="3" fill="rgba(190,215,255,.18)" stroke="#D4BFA0" stroke-width="5"/>
+  <line x1="130" y1="55" x2="130" y2="635" stroke="#D4BFA0" stroke-width="4"/>
+  <line x1="44" y1="345" x2="216" y2="345" stroke="#D4BFA0" stroke-width="4"/>
+  <!-- Window light beam -->
+  <polygon points="216,55 216,635 460,692 460,0" fill="url(#beam-g)"/>
+
+  <!-- ARTWORK ZONE (JS reads this rect for placement) -->
+  <rect id="hm-artwork-zone" x="548" y="118" width="504" height="420" fill="rgba(0,0,0,.04)" data-artwork-zone="true"/>
+
+  <!-- Sofa body -->
+  <g filter="url(#sof-sh)">
+    <rect x="270" y="596" width="920" height="96" rx="12" fill="#7C6452"/>
+    <!-- Seat division -->
+    <line x1="730" y1="596" x2="730" y2="692" stroke="rgba(0,0,0,.1)" stroke-width="2"/>
+    <!-- Back -->
+    <rect x="270" y="556" width="920" height="46" rx="8" fill="#6D5644"/>
+    <!-- Left arm -->
+    <rect x="270" y="540" width="72" height="152" rx="10" fill="#886656"/>
+    <!-- Right arm -->
+    <rect x="1118" y="540" width="72" height="152" rx="10" fill="#886656"/>
+    <!-- Back cushions -->
+    <rect x="346" y="556" width="374" height="44" rx="6" fill="#745848"/>
+    <rect x="742" y="556" width="374" height="44" rx="6" fill="#745848"/>
+  </g>
+  <!-- Sofa floor shadow -->
+  <ellipse cx="730" cy="698" rx="490" ry="22" fill="rgba(0,0,0,.14)"/>
+
+  <!-- Coffee table -->
+  <rect x="448" y="714" width="560" height="10" rx="4" fill="#5A4835"/>
+  <rect x="472" y="724" width="10" height="48" fill="#4A3828"/>
+  <rect x="986" y="724" width="10" height="48" fill="#4A3828"/>
+  <rect x="522" y="724" width="10" height="48" fill="#4A3828"/>
+  <rect x="936" y="724" width="10" height="48" fill="#4A3828"/>
+
+  <!-- Side table right -->
+  <rect x="1190" y="632" width="96" height="60" fill="#6A5842"/>
+  <rect x="1182" y="628" width="112" height="10" rx="2" fill="#7A6852"/>
+  <!-- Lamp on side table -->
+  <rect x="1234" y="540" width="10" height="94" fill="#A0906E"/>
+  <polygon points="1196,540 1280,540 1244,446" fill="#EAD8B0"/>
+  <ellipse cx="1239" cy="540" rx="90" ry="28" fill="rgba(255,220,140,.14)"/>
+
+  <!-- Plant far right -->
+  <rect x="1466" y="588" width="32" height="104" fill="#8A7050"/>
+  <rect x="1450" y="690" width="64" height="16" rx="3" fill="#7A6040"/>
+  <ellipse cx="1482" cy="546" rx="82" ry="98" fill="#3E6242"/>
+  <ellipse cx="1432" cy="588" rx="46" ry="62" fill="#4A7050"/>
+  <ellipse cx="1530" cy="582" rx="42" ry="58" fill="#375A3C"/>
+</svg>

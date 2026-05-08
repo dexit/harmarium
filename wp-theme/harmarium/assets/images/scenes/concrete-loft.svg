@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="wall-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#CCCAC4"/><stop offset="100%" stop-color="#B8B6B0"/></linearGradient>
+    <linearGradient id="floor-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A8A6A0"/><stop offset="100%" stop-color="#909088"/></linearGradient>
+    <linearGradient id="ceil-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,0,0,.28)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></linearGradient>
+    <filter id="tex"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" result="noise"/><feColorMatrix type="saturate" values="0" in="noise" result="gray"/><feBlend in="SourceGraphic" in2="gray" mode="multiply" result="blend"/><feComposite in="blend" in2="SourceGraphic" operator="in"/></filter>
+  </defs>
+  <!-- Concrete wall -->
+  <rect width="1600" height="700" fill="url(#wall-g)"/>
+  <!-- Texture overlay -->
+  <rect width="1600" height="700" fill="rgba(160,155,148,.25)" filter="url(#tex)" opacity=".3"/>
+  <rect width="1600" height="65" fill="url(#ceil-g)"/>
+  <!-- Floor -->
+  <rect y="700" width="1600" height="200" fill="url(#floor-g)"/>
+  <!-- Floor grid lines (polished concrete) -->
+  <line x1="400" y1="700" x2="400" y2="900" stroke="rgba(0,0,0,.07)" stroke-width="2"/>
+  <line x1="800" y1="700" x2="800" y2="900" stroke="rgba(0,0,0,.07)" stroke-width="2"/>
+  <line x1="1200" y1="700" x2="1200" y2="900" stroke="rgba(0,0,0,.07)" stroke-width="2"/>
+  <line x1="0" y1="800" x2="1600" y2="800" stroke="rgba(0,0,0,.05)" stroke-width="2"/>
+
+  <!-- Exposed pipe along ceiling -->
+  <rect x="0" y="48" width="1600" height="16" rx="8" fill="#8A8880"/>
+  <circle cx="200" cy="56" r="12" fill="#7A7870"/>
+  <circle cx="600" cy="56" r="12" fill="#7A7870"/>
+  <circle cx="1000" cy="56" r="12" fill="#7A7870"/>
+  <circle cx="1400" cy="56" r="12" fill="#7A7870"/>
+
+  <!-- ARTWORK ZONE -->
+  <rect id="hm-artwork-zone" x="548" y="120" width="504" height="420" fill="rgba(0,0,0,.03)" data-artwork-zone="true"/>
+
+  <!-- Industrial shelf left -->
+  <rect x="60" y="308" width="260" height="14" rx="2" fill="#9A9890"/>
+  <rect x="60" y="322" width="8" height="188" fill="#8A8880"/>
+  <rect x="312" y="322" width="8" height="188" fill="#8A8880"/>
+  <!-- Items on shelf -->
+  <rect x="76" y="268" width="44" height="42" rx="3" fill="#7A8090"/>
+  <rect x="128" y="278" width="36" height="32" rx="2" fill="#988880"/>
+  <rect x="172" y="256" width="52" height="54" rx="3" fill="#7A9080"/>
+  <rect x="232" y="274" width="36" height="36" rx="2" fill="#9A8870"/>
+
+  <!-- Metal chair right -->
+  <rect x="1330" y="540" width="18" height="160" fill="#6A6A68"/>
+  <rect x="1480" y="540" width="18" height="160" fill="#6A6A68"/>
+  <rect x="1326" y="536" width="180" height="16" rx="2" fill="#787876"/>
+  <rect x="1326" y="600" width="180" height="100" rx="4" fill="#828280"/>
+  <!-- Chair shadow -->
+  <ellipse cx="1418" cy="706" rx="120" ry="16" fill="rgba(0,0,0,.12)"/>
+
+  <!-- Pendant light -->
+  <rect x="796" y="0" width="6" height="70" fill="#7A7870"/>
+  <rect x="768" y="70" width="62" height="40" rx="4" fill="#484840"/>
+  <ellipse cx="799" cy="110" rx="36" ry="10" fill="rgba(255,230,160,.18)"/>
+</svg>

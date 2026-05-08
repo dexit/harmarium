@@ -85,6 +85,31 @@ function harmarium_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'harmarium_enqueue_assets' );
 
 /**
+ * Artwork viewer assets — only on single product or single portfolio pages.
+ */
+function harmarium_enqueue_viewer_assets(): void {
+	if ( ! is_singular( array( 'product', 'portfolio' ) ) ) {
+		return;
+	}
+
+	wp_enqueue_style(
+		'harmarium-artwork-viewer',
+		HARMARIUM_URI . '/assets/css/artwork-viewer.css',
+		array( 'harmarium-main' ),
+		HARMARIUM_VERSION
+	);
+
+	wp_enqueue_script(
+		'harmarium-artwork-viewer',
+		HARMARIUM_URI . '/assets/js/artwork-viewer.js',
+		array( 'harmarium-interactive' ),
+		HARMARIUM_VERSION,
+		array( 'strategy' => 'defer', 'in_footer' => true )
+	);
+}
+add_action( 'wp_enqueue_scripts', 'harmarium_enqueue_viewer_assets', 20 );
+
+/**
  * Editor assets.
  */
 function harmarium_editor_assets() {
