@@ -1,0 +1,98 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"section","className":"category-hero","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|50"}},"color":{"background":"var:preset|color|ink"}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1440px"}} -->
+<section class="wp-block-group category-hero has-ink-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--50)">
+  <!-- wp:woocommerce/breadcrumbs {"textColor":"parchment"} /-->
+  <!-- wp:query-title {"type":"archive","textAlign":"center","textColor":"paper","style":{"typography":{"fontSize":"var:preset|font-size|hero"}}} /-->
+  <!-- wp:term-description {"textAlign":"center","textColor":"parchment","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} /-->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"shop-header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1440px"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60)">
+
+  <!-- wp:columns {"verticalAlignment":"top","align":"wide"} -->
+  <div class="wp-block-columns alignwide are-vertically-aligned-top">
+
+    <!-- wp:column {"width":"240px","verticalAlignment":"top","style":{"position":{"type":"sticky","top":"96px"}}} -->
+    <div class="wp-block-column is-vertically-aligned-top" style="position:sticky;top:96px;flex-basis:240px">
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"price-filter","heading":"Price"} -->
+      <!-- wp:woocommerce/price-filter /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"stock-filter","heading":"Availability"} -->
+      <!-- wp:woocommerce/stock-filter /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"active-filters","heading":"Active filters"} -->
+      <!-- wp:woocommerce/active-filters /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+    </div>
+    <!-- /wp:column -->
+
+    <!-- wp:column -->
+    <div class="wp-block-column">
+      <!-- wp:woocommerce/store-notices /-->
+
+      <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"},"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
+      <div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--40)">
+        <!-- wp:woocommerce/product-results-count /-->
+        <!-- wp:woocommerce/catalog-sorting /-->
+      </div>
+      <!-- /wp:group -->
+
+      <!-- wp:query {"queryId":51,"query":{"perPage":12,"postType":"product","inherit":true},"align":"wide"} -->
+      <div class="wp-block-query alignwide">
+        <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+          <!-- wp:group {"className":"is-style-harmarium-card harmarium-product-card"} -->
+          <div class="wp-block-group is-style-harmarium-card harmarium-product-card">
+            <!-- wp:woocommerce/product-image {"showSaleBadge":true,"saleBadgeAlign":"right","imageSizing":"cropped"} /-->
+            <!-- wp:woocommerce/product-title {"isLink":true,"headingLevel":3} /-->
+            <!-- wp:woocommerce/product-price /-->
+            <!-- wp:woocommerce/product-button /-->
+          </div>
+          <!-- /wp:group -->
+        <!-- /wp:post-template -->
+
+        <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|60"}}}} -->
+          <!-- wp:query-pagination-previous /-->
+          <!-- wp:query-pagination-numbers /-->
+          <!-- wp:query-pagination-next /-->
+        <!-- /wp:query-pagination -->
+
+        <!-- wp:query-no-results -->
+          <!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center">No products in this category yet.</p><!-- /wp:paragraph -->
+        <!-- /wp:query-no-results -->
+      </div>
+      <!-- /wp:query -->
+    </div>
+    <!-- /wp:column -->
+  </div>
+  <!-- /wp:columns -->
+
+  <!-- wp:spacer {"height":"var:preset|spacing|70"} /-->
+
+  <!-- wp:group {"align":"wide","className":"category-cta-banner","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}},"color":{"background":"var:preset|color|ink"}},"layout":{"type":"constrained"}} -->
+  <div class="wp-block-group alignwide category-cta-banner has-ink-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
+    <!-- wp:heading {"textAlign":"center","level":3,"textColor":"paper"} -->
+    <h3 class="wp-block-heading has-text-align-center has-paper-color has-text-color">Commission your own portrait</h3>
+    <!-- /wp:heading -->
+    <!-- wp:paragraph {"align":"center","textColor":"parchment"} -->
+    <p class="has-text-align-center has-parchment-color has-text-color">Don't see exactly what you're looking for? Every piece in the collection began as a conversation.</p>
+    <!-- /wp:paragraph -->
+    <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+    <div class="wp-block-buttons">
+      <!-- wp:button {"backgroundColor":"ochre","textColor":"ink","className":"is-style-fill"} -->
+      <div class="wp-block-button is-style-fill"><a class="wp-block-button__link has-ink-color has-ochre-background-color has-text-color has-background wp-element-button" href="/commission/">Start a Commission</a></div>
+      <!-- /wp:button -->
+    </div>
+    <!-- /wp:buttons -->
+  </div>
+  <!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

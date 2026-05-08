@@ -34,7 +34,14 @@ add_action( 'rest_api_init', function (): void {
 			'message'  => [ 'type' => 'string', 'required' => true, 'sanitize_callback' => 'sanitize_textarea_field' ],
 			'budget'   => [ 'type' => 'string', 'default' => '',    'sanitize_callback' => 'sanitize_text_field' ],
 			'timeline' => [ 'type' => 'string', 'default' => '',    'sanitize_callback' => 'sanitize_text_field' ],
-			'nonce'    => [ 'type' => 'string', 'required' => true ],
+			'nonce'       => [ 'type' => 'string', 'required' => true ],
+			'utm_source'   => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+			'utm_medium'   => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+			'utm_campaign' => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+			'utm_content'  => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+			'utm_term'     => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
+			'referrer'     => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'esc_url_raw' ],
+			'landing_page' => [ 'type' => 'string', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ],
 		],
 	] );
 } );
@@ -91,7 +98,15 @@ function harmarium_rest_commission( WP_REST_Request $req ): WP_REST_Response|WP_
 		return new WP_Error( 'insert_failed', __( 'Could not save request.', 'harmarium-ext' ), [ 'status' => 500 ] );
 	}
 
+	// Store user ID if logged in
+	if ( is_user_logged_in() ) {
+		update_post_meta( $post_id, '_hm_user_id', get_current_user_id() );
+	}
+
 	harmarium_commission_notify( $post_id, $data );
+
+	// Fire hooks for lead tracking and logging
+	do_action( 'harmarium_after_commission_insert', $post_id, $data, $req );
 
 	return new WP_REST_Response( [ 'id' => $post_id, 'message' => __( 'Thank you — your request has been received.', 'harmarium-ext' ) ], 201 );
 }
