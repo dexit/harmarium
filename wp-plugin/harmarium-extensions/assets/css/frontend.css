@@ -1,0 +1,234 @@
+/* Harmarium Extensions — frontend styles */
+
+/* ── Portfolio Loop Widget ── */
+.hm-portfolio-loop {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
+}
+
+.hm-portfolio-loop__item {
+	position: relative;
+	overflow: hidden;
+}
+
+.hm-portfolio-loop__link {
+	display: block;
+	position: relative;
+}
+
+.hm-portfolio-loop__image {
+	display: block;
+	width: 100%;
+	height: auto;
+	transition: transform .3s ease;
+}
+
+.hm-portfolio-loop__item:hover .hm-portfolio-loop__image {
+	transform: scale(1.03);
+}
+
+.hm-portfolio-loop__badge {
+	position: absolute;
+	top: .75rem;
+	left: .75rem;
+	padding: .25rem .75rem;
+	border-radius: 3px;
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+}
+
+.hm-badge--available { background: #dcfce7; color: #166534; }
+
+.hm-portfolio-loop__title {
+	margin: .5rem 0 .25rem;
+	font-size: 1rem;
+}
+
+.hm-portfolio-loop__title a { text-decoration: none; }
+
+.hm-portfolio-loop__meta {
+	font-size: .8125rem;
+	opacity: .7;
+	margin: 0;
+}
+
+/* ── Artwork Meta Widget ── */
+.hm-artwork-meta {
+	display: flex;
+	flex-direction: column;
+	gap: .5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.hm-artwork-meta__row {
+	display: flex;
+	gap: 1rem;
+	align-items: baseline;
+	border-bottom: 1px solid rgba(0,0,0,.08);
+	padding-bottom: .5rem;
+}
+
+.hm-artwork-meta__label {
+	flex: 0 0 120px;
+	font-size: .8125rem;
+	text-transform: uppercase;
+	letter-spacing: .06em;
+	opacity: .6;
+}
+
+.hm-artwork-meta__value {
+	flex: 1;
+	margin: 0;
+}
+
+/* ── Commission Form Widget ── */
+.hm-commission-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.hm-commission-form__row--two-col {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+@media (max-width: 600px) {
+	.hm-commission-form__row--two-col { grid-template-columns: 1fr; }
+}
+
+.hm-commission-form__field {
+	display: flex;
+	flex-direction: column;
+	gap: .25rem;
+}
+
+.hm-commission-form__field label {
+	font-size: .875rem;
+	font-weight: 600;
+}
+
+.hm-commission-form__field input,
+.hm-commission-form__field textarea,
+.hm-commission-form__field select {
+	padding: .625rem .875rem;
+	border: 1px solid #d1d5db;
+	border-radius: 4px;
+	font-size: 1rem;
+	width: 100%;
+	background: #fff;
+}
+
+.hm-commission-form__field textarea { resize: vertical; min-height: 120px; }
+
+.hm-commission-form__errors {
+	padding: .75rem 1rem;
+	background: #fee2e2;
+	color: #991b1b;
+	border-radius: 4px;
+	font-size: .875rem;
+}
+
+.hm-commission-form__success {
+	padding: 1rem 1.25rem;
+	background: #dcfce7;
+	color: #166534;
+	border-radius: 4px;
+}
+
+.hm-commission-form__submit {
+	padding: .75rem 2rem;
+	background: #1a1a1a;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: opacity .2s;
+	align-self: flex-start;
+}
+
+.hm-commission-form__submit:hover { opacity: .85; }
+.hm-commission-form__submit[aria-busy="true"] { opacity: .6; cursor: wait; }
+
+/* ── Product Spotlight Widget ── */
+.hm-product-spotlight {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.hm-product-spotlight__img-wrap { display: block; }
+
+.hm-product-spotlight__image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.hm-product-spotlight__title { margin: 0 0 .25rem; }
+.hm-product-spotlight__title a { text-decoration: none; }
+
+.hm-product-spotlight__price { font-size: 1.125rem; font-weight: 700; }
+
+.hm-product-spotlight__excerpt { font-size: .9375rem; opacity: .8; }
+
+.hm-product-spotlight__cta {
+	display: inline-block;
+	margin-top: .5rem;
+	padding: .6rem 1.5rem;
+	background: #1a1a1a;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 4px;
+	font-weight: 600;
+	transition: opacity .2s;
+}
+
+.hm-product-spotlight__cta:hover { opacity: .85; }
+
+/* ── My Account: Commission / Proof sections ── */
+.hm-status-pill {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 12px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+}
+
+.hm-status-hm_new         { background: #e0f2fe; color: #0369a1; }
+.hm-status-hm_reviewing   { background: #fef9c3; color: #854d0e; }
+.hm-status-hm_quoted       { background: #fae8ff; color: #7e22ce; }
+.hm-status-hm_accepted     { background: #dcfce7; color: #166534; }
+.hm-status-hm_completed    { background: #d1fae5; color: #065f46; }
+.hm-status-hm_declined     { background: #fee2e2; color: #991b1b; }
+
+.hm-proof-card {
+	padding: 1.5rem;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	margin-bottom: 1.5rem;
+}
+
+.hm-proof-preview { margin: 1rem 0; }
+
+.hm-proof-preview img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 4px;
+}
+
+.hm-proof-actions {
+	display: flex;
+	gap: .75rem;
+	flex-wrap: wrap;
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "harmarium/gallery-hallway",
+  "version": "1.0.0",
+  "title": "Gallery Hallway",
+  "category": "harmarium",
+  "icon": "visibility",
+  "description": "Immersive first-person scroll-driven walkthrough of a virtual exhibition hallway. Artworks load via the WordPress REST API.",
+  "keywords": ["gallery", "hallway", "exhibition", "immersive", "3d", "scroll"],
+  "textdomain": "harmarium-ext",
+  "supports": { "html": false, "align": ["full"], "spacing": { "margin": true } },
+  "attributes": {
+    "sourceUrl":   { "type": "string",  "default": "" },
+    "perPage":     { "type": "integer", "default": 20 },
+    "wallColor":   { "type": "string",  "default": "#f0ebe3" },
+    "floorColor":  { "type": "string",  "default": "#d4c9b8" },
+    "lightColor":  { "type": "string",  "default": "#fff8f0" },
+    "heading":     { "type": "string",  "default": "Walk the gallery" }
+  },
+  "viewScript": "file:./view.js",
+  "render": "file:./render.php"
+}

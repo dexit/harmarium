@@ -1,0 +1,583 @@
+/* ================================================================
+   Harmarium · Artwork Viewer
+   A luxury gallery viewer:
+     · Main image + thumbnail strip
+     · In-room mockup toggle
+     · Frame / Canvas / Packaging configurator
+   ================================================================ */
+
+/* ── Layout shell ──────────────────────────────────────────────── */
+.hm-av {
+  --av-gap: clamp(1.5rem, 4vw, 3rem);
+  --av-radius: 6px;
+  --av-transition: .38s cubic-bezier(.22,.61,.36,1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--av-gap);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .hm-av { grid-template-columns: 1fr; }
+}
+
+/* ── Gallery panel (left) ──────────────────────────────────────── */
+.hm-av__gallery {
+  position: sticky;
+  top: calc(var(--hm-header-height, 72px) + 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+/* Main image stage */
+.hm-av__main {
+  position: relative;
+  background: #F8F5F0;
+  border-radius: var(--av-radius);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mockup stage hides when inactive */
+.hm-av__main--mockup .hm-av__img-wrap { display: none; }
+.hm-av__main--mockup .hm-av__mockup-stage { display: flex; }
+
+.hm-av__img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+
+/* ── Artwork image with frame system ───────────────────────────── */
+.hm-av__artwork-wrap {
+  position: relative;
+  display: inline-flex;
+  transition: box-shadow var(--av-transition), outline var(--av-transition), padding var(--av-transition);
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.hm-av__artwork-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform var(--av-transition);
+}
+
+/* Canvas types — affect the wrap appearance */
+.hm-av__artwork-wrap[data-canvas="gallery-wrap"] { box-shadow: 6px 6px 0 -2px #d0c8b8, 8px 8px 0 0 #b8b0a0, 0 12px 32px rgba(0,0,0,.22); }
+.hm-av__artwork-wrap[data-canvas="stretched"] { box-shadow: 4px 4px 0 -1px #c8c0b0, 6px 6px 0 0 #b0a898, 0 8px 24px rgba(0,0,0,.18); }
+
+/* Gallery-wrap edge illusion via pseudo-element */
+.hm-av__artwork-wrap[data-canvas="gallery-wrap"]::before,
+.hm-av__artwork-wrap[data-canvas="stretched"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(to right, rgba(0,0,0,.1) 0%, transparent 8%),
+    linear-gradient(to left, rgba(0,0,0,.08) 0%, transparent 8%),
+    linear-gradient(to bottom, rgba(0,0,0,.08) 0%, transparent 8%);
+}
+
+/* ── Frame styles (CSS box-shadow based) ──────────────────────── */
+
+/* White mat inside frame — shown on framed-print canvas */
+.hm-av__artwork-wrap[data-canvas="framed-print"] {
+  padding: clamp(16px, 3%, 40px);
+  background: #F8F5F0;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.06) inset;
+}
+.hm-av__artwork-wrap[data-canvas="museum-frame"] {
+  padding: clamp(24px, 4.5%, 60px);
+  background: #F2EDE4;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.06) inset;
+}
+
+/* Frames */
+[data-frame="none"] .hm-av__artwork-wrap { box-shadow: 0 4px 24px rgba(0,0,0,.12); }
+[data-frame="thin-black"] .hm-av__artwork-wrap { box-shadow: 0 0 0 5px #111, 0 0 0 6px rgba(0,0,0,.12), 0 8px 32px rgba(0,0,0,.32); }
+[data-frame="thick-black"] .hm-av__artwork-wrap { box-shadow: 0 0 0 24px #111, 0 0 0 26px rgba(0,0,0,.2), 0 12px 40px rgba(0,0,0,.45); }
+[data-frame="thin-white"] .hm-av__artwork-wrap { box-shadow: 0 0 0 5px #f5f0ea, 0 0 0 6px rgba(0,0,0,.08), 0 8px 28px rgba(0,0,0,.22); }
+[data-frame="thin-white"] { background: #f0ece6; }
+[data-frame="oak"] .hm-av__artwork-wrap { box-shadow: 0 0 0 20px #C8A86A, 0 0 0 21px #8B6914, 0 0 0 22px rgba(0,0,0,.12), 0 10px 36px rgba(0,0,0,.32); }
+[data-frame="walnut"] .hm-av__artwork-wrap { box-shadow: 0 0 0 20px #5C3D1E, 0 0 0 21px #3A2210, 0 0 0 22px rgba(0,0,0,.15), 0 10px 36px rgba(0,0,0,.40); }
+[data-frame="gold"] .hm-av__artwork-wrap { box-shadow: 0 0 0 20px #D4AF37, 0 0 0 22px #8B7320, 0 0 0 24px rgba(0,0,0,.12), 0 10px 36px rgba(0,0,0,.30); }
+
+/* Hover zoom on image */
+.hm-av__img-wrap:hover .hm-av__artwork-img { transform: scale(1.012); }
+
+/* Zoom button */
+.hm-av__zoom-btn {
+  position: absolute;
+  bottom: .75rem;
+  right: .75rem;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,.9);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.14);
+  transition: background .2s;
+  z-index: 5;
+}
+.hm-av__zoom-btn:hover { background: #fff; }
+.hm-av__zoom-btn svg { width: 16px; height: 16px; }
+
+/* ── Thumbnail strip ───────────────────────────────────────────── */
+.hm-av__thumbs {
+  display: flex;
+  gap: .5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c0b8a8 transparent;
+  padding-bottom: 2px;
+}
+
+.hm-av__thumb {
+  flex: 0 0 72px;
+  height: 72px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .2s, opacity .2s;
+  background: #f0ece6;
+}
+
+.hm-av__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.hm-av__thumb:hover { border-color: #c0b0a0; opacity: 1; }
+.hm-av__thumb.is-active { border-color: #1a1a1a; }
+
+/* ── View-in-room toggle bar ───────────────────────────────────── */
+.hm-av__mode-bar {
+  display: flex;
+  gap: 2px;
+  background: #f0ece6;
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.hm-av__mode-btn {
+  flex: 1;
+  padding: .5rem .75rem;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: .8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  color: #6a6058;
+  display: flex; align-items: center; justify-content: center; gap: .4rem;
+}
+
+.hm-av__mode-btn.is-active {
+  background: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1);
+}
+
+.hm-av__mode-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ── Mockup stage (room preview) ───────────────────────────────── */
+.hm-av__mockup-stage {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1a1815;
+}
+
+.hm-av__mockup-scene {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hm-av__mockup-art {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  cursor: grab;
+  transition: width .4s var(--av-transition), left .4s var(--av-transition), top .4s var(--av-transition);
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.35));
+  user-select: none;
+}
+
+.hm-av__mockup-art:active { cursor: grabbing; }
+
+.hm-av__mockup-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* Frame applied in mockup too */
+.hm-av__mockup-art[data-frame="none"] img { box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+.hm-av__mockup-art[data-frame="thin-black"] img { box-shadow: 0 0 0 4px #111, 0 6px 20px rgba(0,0,0,.45); }
+.hm-av__mockup-art[data-frame="thick-black"] img { box-shadow: 0 0 0 18px #111, 0 8px 28px rgba(0,0,0,.55); }
+.hm-av__mockup-art[data-frame="thin-white"] img { box-shadow: 0 0 0 5px #f5f0ea, 0 4px 16px rgba(0,0,0,.35); }
+.hm-av__mockup-art[data-frame="oak"] img { box-shadow: 0 0 0 14px #C8A86A, 0 0 0 16px #8B6914, 0 8px 24px rgba(0,0,0,.4); }
+.hm-av__mockup-art[data-frame="walnut"] img { box-shadow: 0 0 0 14px #5C3D1E, 0 0 0 16px #3A2210, 0 8px 24px rgba(0,0,0,.45); }
+.hm-av__mockup-art[data-frame="gold"] img { box-shadow: 0 0 0 14px #D4AF37, 0 0 0 16px #8B7320, 0 8px 24px rgba(0,0,0,.4); }
+
+/* Mockup controls overlay */
+.hm-av__mockup-controls {
+  position: absolute;
+  bottom: .75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  border-radius: 40px;
+  padding: .4rem .75rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  white-space: nowrap;
+}
+
+.hm-av__scene-select {
+  border: none;
+  background: transparent;
+  font-size: .8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #1a1a1a;
+  padding: .25rem .5rem;
+}
+
+.hm-av__scale-input {
+  appearance: none;
+  width: 80px; height: 4px;
+  background: #d0c8c0;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.hm-av__scale-input::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px; height: 14px;
+  background: #1a1a1a;
+  border-radius: 50%;
+}
+
+.hm-av__mockup-reset {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #888;
+  font-size: .75rem;
+  padding: .25rem .5rem;
+}
+
+.hm-av__mockup-reset:hover { color: #1a1a1a; }
+
+/* Size hint in mockup */
+.hm-av__mockup-size {
+  font-size: .75rem;
+  color: #555;
+}
+
+/* ── Configurator panel (right) ────────────────────────────────── */
+.hm-av__config {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Artwork title area (price is handled by WC) */
+.hm-av__config-header {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.hm-av__eyebrow {
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #8A8078;
+}
+
+/* ── Section label ─────────────────────────────────────────────── */
+.hm-av__section {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.hm-av__section-label {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #6A6058;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hm-av__section-value {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #1a1a1a;
+}
+
+/* ── Frame swatches ────────────────────────────────────────────── */
+.hm-av__frame-swatches {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.hm-av__frame-swatch {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .2s, transform .15s;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.hm-av__frame-swatch::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: #f8f5f0;
+  border-radius: 2px;
+}
+
+.hm-av__frame-swatch[data-frame-swatch="none"] { background: #e8e4de; }
+.hm-av__frame-swatch[data-frame-swatch="none"]::before { inset: 0; }
+.hm-av__frame-swatch[data-frame-swatch="thin-black"] { background: #111; }
+.hm-av__frame-swatch[data-frame-swatch="thick-black"] { background: #111; }
+.hm-av__frame-swatch[data-frame-swatch="thick-black"]::before { inset: 10px; }
+.hm-av__frame-swatch[data-frame-swatch="thin-white"] { background: #f5f0ea; border-color: #d8d0c8; }
+.hm-av__frame-swatch[data-frame-swatch="oak"] { background: linear-gradient(135deg, #D4A84A 0%, #C09030 40%, #C8A850 60%, #A88020 100%); }
+.hm-av__frame-swatch[data-frame-swatch="walnut"] { background: linear-gradient(135deg, #6B3F1C 0%, #4A2C10 50%, #5A3418 100%); }
+.hm-av__frame-swatch[data-frame-swatch="gold"] { background: linear-gradient(135deg, #E8C84A 0%, #C8A820 30%, #D4AF37 60%, #A89020 100%); }
+
+.hm-av__frame-swatch:hover { transform: scale(1.08); border-color: #888; }
+.hm-av__frame-swatch.is-active { border-color: #1a1a1a; }
+.hm-av__frame-swatch.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: 3px; right: 3px;
+  width: 8px; height: 8px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  z-index: 2;
+}
+.hm-av__frame-swatch[data-frame-swatch="thin-black"].is-active::after,
+.hm-av__frame-swatch[data-frame-swatch="thick-black"].is-active::after { background: #fff; }
+
+/* ── Canvas type selector ──────────────────────────────────────── */
+.hm-av__canvas-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+}
+
+.hm-av__canvas-option {
+  position: relative;
+  border: 1.5px solid #ddd8d0;
+  border-radius: 6px;
+  padding: .625rem .75rem;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  background: #faf8f5;
+}
+
+.hm-av__canvas-option:hover { border-color: #b0a898; background: #f5f2ec; }
+.hm-av__canvas-option.is-active { border-color: #1a1a1a; background: #fff; }
+
+.hm-av__canvas-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+
+.hm-av__canvas-name {
+  display: block;
+  font-size: .8125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: .2rem;
+}
+
+.hm-av__canvas-desc {
+  display: block;
+  font-size: .6875rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Canvas icon thumbnails */
+.hm-av__canvas-icon {
+  width: 32px; height: 24px;
+  margin-bottom: .4rem;
+  border-radius: 2px;
+}
+
+.hm-av__canvas-icon--stretched { background: linear-gradient(to right, #c0b8a8 4px, #e8e0d0 4px calc(100% - 4px), #c0b8a8 calc(100% - 4px)); }
+.hm-av__canvas-icon--gallery-wrap { background: linear-gradient(to right, #a8a090 6px, #e8e0d0 6px calc(100% - 6px), #a8a090 calc(100% - 6px)); border-top: 6px solid #a8a090; }
+.hm-av__canvas-icon--framed-print { background: #e8e0d0; outline: 4px solid #888; outline-offset: -4px; }
+.hm-av__canvas-icon--museum-frame { background: #e8e0d0; border: 8px solid #666; box-shadow: inset 0 0 0 4px #f0ece6; }
+
+/* Check tick on active canvas option */
+.hm-av__canvas-option.is-active .hm-av__canvas-name::before {
+  content: '✓ ';
+  color: #1a1a1a;
+}
+
+/* ── Packaging selector ────────────────────────────────────────── */
+.hm-av__packaging-options {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.hm-av__pkg-option {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  border: 1.5px solid #ddd8d0;
+  border-radius: 6px;
+  padding: .75rem 1rem;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  background: #faf8f5;
+  position: relative;
+}
+
+.hm-av__pkg-option input[type="radio"] { position: absolute; opacity: 0; width: 0; }
+
+.hm-av__pkg-option:hover { border-color: #b0a898; }
+.hm-av__pkg-option.is-active { border-color: #1a1a1a; background: #fff; }
+
+.hm-av__pkg-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: #f0ece6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.hm-av__pkg-body { flex: 1; }
+
+.hm-av__pkg-name {
+  display: block;
+  font-size: .875rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.hm-av__pkg-desc {
+  display: block;
+  font-size: .75rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+.hm-av__pkg-check {
+  width: 18px; height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: border-color .2s, background .2s;
+}
+
+.hm-av__pkg-option.is-active .hm-av__pkg-check {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  box-shadow: inset 0 0 0 3px #fff;
+}
+
+/* ── WooCommerce integration area ──────────────────────────────── */
+.hm-av__wc-zone { display: flex; flex-direction: column; gap: 1rem; }
+
+/* Trust badges */
+.hm-av__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.25rem;
+}
+
+.hm-av__trust-item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .75rem;
+  color: #6A6058;
+}
+
+.hm-av__trust-item svg { width: 14px; height: 14px; color: #9A8878; flex-shrink: 0; }
+
+/* ── Lightbox (full zoom) ──────────────────────────────────────── */
+.hm-av-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(10,8,6,.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+.hm-av-lightbox.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.hm-av-lightbox__img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.hm-av-lightbox__close {
+  position: absolute;
+  top: 1rem; right: 1.25rem;
+  background: transparent;
+  border: none;
+  color: #f0ece6;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: .7;
+  transition: opacity .2s;
+}
+
+.hm-av-lightbox__close:hover { opacity: 1; }
+
+/* ── Responsive adjustments ───────────────────────────────────── */
+@media (max-width: 640px) {
+  .hm-av__canvas-options { grid-template-columns: 1fr; }
+  .hm-av__frame-swatch { width: 38px; height: 38px; }
+  .hm-av__main { aspect-ratio: 1; }
+}

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "phpVersion": "8.2",
+  "wordPressVersion": "latest",
+  "preferredVersions": {
+    "php": "8.2",
+    "wp": "latest"
+  },
+  "login": true,
+  "features": {
+    "networking": true
+  },
+  "steps": [
+
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "activate": true
+    },
+
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "advanced-custom-fields"
+      },
+      "activate": true
+    },
+
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "url",
+        "url": "https://github.com/dexit/harmarium/raw/claude/harmarium-fse-theme-woo-euigA/wp-theme/harmarium.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://github.com/dexit/harmarium/raw/claude/harmarium-fse-theme-woo-euigA/wp-plugin/harmarium-extensions.zip"
+      },
+      "activate": true
+    },
+
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n// Set site title and tagline\nupdate_option('blogname', 'Harmarium Portrait Art');\nupdate_option('blogdescription', 'Original portraits in acrylic, oil pastel, watercolour & digital');\nupdate_option('show_on_front', 'page');\n// Create sample portfolio artworks\n$portfolio_items = [\n  ['title' => 'Golden Hour Portrait', 'medium' => 'Acrylic on canvas', 'dimensions' => '60 × 80 cm', 'year' => '2024', 'availability' => 'available', 'price' => '€2,400'],\n  ['title' => 'Soft Focus Study',     'medium' => 'Oil pastel',        'dimensions' => '40 × 50 cm', 'year' => '2024', 'availability' => 'sold',      'price' => '€980'],\n  ['title' => 'Morning Light',        'medium' => 'Watercolour',       'dimensions' => '30 × 40 cm', 'year' => '2023', 'availability' => 'available', 'price' => '€650'],\n  ['title' => 'Digital Dreams',       'medium' => 'Digital',           'dimensions' => 'A2 print',   'year' => '2024', 'availability' => 'available', 'price' => '€320'],\n  ['title' => 'The Red Chair',        'medium' => 'Acrylic on board',  'dimensions' => '50 × 70 cm', 'year' => '2023', 'availability' => 'reserved',  'price' => '€1,800'],\n  ['title' => 'Evening Blue',         'medium' => 'Oil pastel',        'dimensions' => '45 × 60 cm', 'year' => '2024', 'availability' => 'available', 'price' => '€1,200'],\n];\nforeach ($portfolio_items as $item) {\n  $post_id = wp_insert_post([\n    'post_title'   => $item['title'],\n    'post_type'    => 'portfolio',\n    'post_status'  => 'publish',\n    'post_content' => '<p>An original work in ' . $item['medium'] . '. Certificate of authenticity included.</p>',\n    'post_excerpt' => 'An evocative original portrait capturing light and emotion.',\n  ]);\n  if ($post_id && !is_wp_error($post_id)) {\n    update_post_meta($post_id, '_hm_medium',       $item['medium']);\n    update_post_meta($post_id, '_hm_dimensions',   $item['dimensions']);\n    update_post_meta($post_id, '_hm_year',          $item['year']);\n    update_post_meta($post_id, '_hm_availability',  $item['availability']);\n    update_post_meta($post_id, '_hm_price_display', $item['price']);\n    // Wall positioning\n    update_post_meta($post_id, '_hm_wall_x',     round(0.1 + lcg_value() * 0.8, 2));\n    update_post_meta($post_id, '_hm_wall_y',     round(0.2 + lcg_value() * 0.5, 2));\n    update_post_meta($post_id, '_hm_wall_scale', round(0.2 + lcg_value() * 0.2, 2));\n  }\n}\n// Create Front Page\n$front_id = wp_insert_post([\n  'post_title'  => 'Home',\n  'post_type'   => 'page',\n  'post_status' => 'publish',\n  'post_name'   => 'home',\n]);\nif ($front_id && !is_wp_error($front_id)) update_option('page_on_front', $front_id);\n// Create Gallery Hallway page\n$hallway_id = wp_insert_post([\n  'post_title'    => 'Virtual Gallery',\n  'post_type'     => 'page',\n  'post_status'   => 'publish',\n  'post_name'     => 'virtual-gallery',\n  'page_template' => 'page-gallery-hallway',\n]);\n// Create Commission page\nwp_insert_post([\n  'post_title'  => 'Commission a Portrait',\n  'post_type'   => 'page',\n  'post_status' => 'publish',\n  'post_name'   => 'commission',\n  'post_content'=> '<!-- wp:harmarium/commission-form {\"heading\":\"Commission a portrait\",\"subheading\":\"Tell me about the piece you have in mind.\"} /-->',\n]);\n// WooCommerce: create shop pages and a sample product\nif (function_exists('WC')) {\n  $product = new WC_Product_Simple();\n  $product->set_name('Golden Hour — Giclée Print');\n  $product->set_status('publish');\n  $product->set_price('320');\n  $product->set_regular_price('320');\n  $product->set_description('<p>Museum-quality giclée print on 310gsm fine-art paper. Certificate of authenticity included. Edition of 25.</p>');\n  $product->save();\n}\necho 'Harmarium demo content seeded.';\n"
+    },
+
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n// Set permalink structure\nglobal $wp_rewrite;\n$wp_rewrite->set_permalink_structure('/%postname%/');\n$wp_rewrite->flush_rules(true);\nupdate_option('permalink_structure', '/%postname%/');\necho 'Permalinks flushed.';\n"
+    }
+
+  ]
+}

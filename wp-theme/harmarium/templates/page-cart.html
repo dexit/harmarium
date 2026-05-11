@@ -1,0 +1,67 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1320px"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60)">
+  <!-- wp:heading {"level":6,"className":"is-style-harmarium-eyebrow"} -->
+  <h6 class="wp-block-heading is-style-harmarium-eyebrow">Cart</h6>
+  <!-- /wp:heading -->
+  <!-- wp:heading {"level":1} -->
+  <h1 class="wp-block-heading">Your selection</h1>
+  <!-- /wp:heading -->
+
+  <!-- wp:woocommerce/cart -->
+    <div class="wp-block-woocommerce-cart alignwide is-loading">
+      <!-- wp:woocommerce/filled-cart-block -->
+      <div class="wp-block-woocommerce-filled-cart-block">
+        <!-- wp:woocommerce/cart-items-block -->
+        <div class="wp-block-woocommerce-cart-items-block">
+          <!-- wp:woocommerce/cart-line-items-block /-->
+          <!-- wp:woocommerce/cart-cross-sells-block -->
+          <div class="wp-block-woocommerce-cart-cross-sells-block">
+            <!-- wp:heading {"level":3} --><h3 class="wp-block-heading">You may also like</h3><!-- /wp:heading -->
+            <!-- wp:woocommerce/cart-cross-sells-products-block /-->
+          </div>
+          <!-- /wp:woocommerce/cart-cross-sells-block -->
+        </div>
+        <!-- /wp:woocommerce/cart-items-block -->
+
+        <!-- wp:woocommerce/cart-totals-block -->
+        <div class="wp-block-woocommerce-cart-totals-block">
+          <!-- wp:woocommerce/cart-order-summary-block -->
+          <div class="wp-block-woocommerce-cart-order-summary-block">
+            <!-- wp:woocommerce/cart-order-summary-heading-block /-->
+            <!-- wp:woocommerce/cart-order-summary-coupon-form-block /-->
+            <!-- wp:woocommerce/cart-order-summary-subtotal-block /-->
+            <!-- wp:woocommerce/cart-order-summary-fee-block /-->
+            <!-- wp:woocommerce/cart-order-summary-discount-block /-->
+            <!-- wp:woocommerce/cart-order-summary-shipping-block /-->
+            <!-- wp:woocommerce/cart-order-summary-taxes-block /-->
+            <!-- wp:woocommerce/cart-order-summary-totals-block /-->
+          </div>
+          <!-- /wp:woocommerce/cart-order-summary-block -->
+          <!-- wp:woocommerce/cart-express-payment-block /-->
+          <!-- wp:woocommerce/proceed-to-checkout-block /-->
+          <!-- wp:woocommerce/cart-accepted-payment-methods-block /-->
+        </div>
+        <!-- /wp:woocommerce/cart-totals-block -->
+      </div>
+      <!-- /wp:woocommerce/filled-cart-block -->
+
+      <!-- wp:woocommerce/empty-cart-block -->
+      <div class="wp-block-woocommerce-empty-cart-block">
+        <!-- wp:image {"sizeSlug":"large","align":"center"} -->
+        <figure class="wp-block-image aligncenter size-large"><img alt="" src="" /></figure>
+        <!-- /wp:image -->
+        <!-- wp:heading {"textAlign":"center"} --><h2 class="wp-block-heading has-text-align-center">Your cart is empty</h2><!-- /wp:heading -->
+        <!-- wp:paragraph {"align":"center"} --><p class="has-text-align-center">Browse the gallery shop to find a piece that speaks to you.</p><!-- /wp:paragraph -->
+        <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+        <div class="wp-block-buttons"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/shop">Visit the shop</a></div><!-- /wp:button --></div>
+        <!-- /wp:buttons -->
+      </div>
+      <!-- /wp:woocommerce/empty-cart-block -->
+    </div>
+  <!-- /wp:woocommerce/cart -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

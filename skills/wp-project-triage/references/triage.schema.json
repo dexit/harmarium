@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WP Project Triage Report",
+  "description": "Output contract for detect_wp_project.mjs",
+  "type": "object",
+  "required": ["root", "project", "signals", "tooling"],
+  "properties": {
+    "root": { "type": "string", "description": "Absolute path of the scanned root." },
+    "project": {
+      "type": "object",
+      "required": ["kind", "kinds"],
+      "properties": {
+        "kind": {
+          "description": "Primary kind (string) or array of kinds when multiple apply.",
+          "oneOf": [
+            { "type": "string", "enum": ["wp-core","plugin","classic-theme","block-theme","gutenberg-blocks","unknown"] },
+            { "type": "array",  "items": { "type": "string", "enum": ["wp-core","plugin","classic-theme","block-theme","gutenberg-blocks","unknown"] } }
+          ]
+        },
+        "kinds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "All matched kinds."
+        }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "description": "Detected structural/feature signals.",
+      "properties": {
+        "pluginName":          { "type": "string" },
+        "themeName":           { "type": "string" },
+        "hasThemeJson":        { "type": "boolean" },
+        "themeJsonSchema":     { "type": "string" },
+        "hasTemplates":        { "type": "boolean" },
+        "hasTemplateParts":    { "type": "boolean" },
+        "hasPatterns":         { "type": "boolean" },
+        "blockCount":          { "type": "integer" },
+        "blockApiVersion":     { "type": "integer" },
+        "usesInteractivityApi":{ "type": "boolean" },
+        "hasWpCli":            { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "tooling": {
+      "type": "object",
+      "description": "Runtime and build tooling discovered.",
+      "properties": {
+        "php":      { "$ref": "#/definitions/tool" },
+        "node":     { "$ref": "#/definitions/tool" },
+        "composer": { "$ref": "#/definitions/composerTool" },
+        "npm":      { "$ref": "#/definitions/npmTool" },
+        "wpCli":    { "$ref": "#/definitions/tool" }
+      }
+    },
+    "tests": {
+      "type": "object",
+      "properties": {
+        "phpunit":  { "type": "boolean" },
+        "jest":     { "type": "boolean" },
+        "e2e":      { "type": "boolean" },
+        "wpEnv":    { "type": "boolean" },
+        "hasTests": { "type": "boolean" }
+      }
+    },
+    "versionHints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source"],
+        "properties": {
+          "source":        { "type": "string" },
+          "wpVersion":     { "type": "string" },
+          "pluginVersion": { "type": "string" },
+          "themeVersion":  { "type": "string" },
+          "requiresWP":    { "type": "string" },
+          "requiresPHP":   { "type": "string" },
+          "schemaVersion": { "type": "string" }
+        }
+      }
+    },
+    "generatedAt": { "type": "string", "format": "date-time" }
+  },
+  "definitions": {
+    "tool": {
+      "type": "object",
+      "required": ["present"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "version": { "type": "string" }
+      }
+    },
+    "composerTool": {
+      "allOf": [{ "$ref": "#/definitions/tool" }],
+      "properties": {
+        "requiresPhp":    { "type": "string" },
+        "hasPhpunit":     { "type": "boolean" },
+        "hasWpTestSuite": { "type": "boolean" }
+      }
+    },
+    "npmTool": {
+      "allOf": [{ "$ref": "#/definitions/tool" }],
+      "properties": {
+        "scripts":       { "type": "array", "items": { "type": "string" } },
+        "usesWpScripts": { "type": "boolean" },
+        "hasWpEnv":      { "type": "boolean" },
+        "hasJest":       { "type": "boolean" },
+        "hasE2e":        { "type": "boolean" }
+      }
+    }
+  }
+}

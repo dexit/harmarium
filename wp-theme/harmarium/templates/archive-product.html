@@ -1,0 +1,89 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:cover {"isUserOverlayColor":true,"overlayColor":"ink","minHeight":40,"minHeightUnit":"vh","contentPosition":"center center","align":"full"} -->
+<div class="wp-block-cover alignfull" style="min-height:40vh">
+  <span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-90 has-background-dim"></span>
+  <div class="wp-block-cover__inner-container">
+    <!-- wp:heading {"textAlign":"center","level":6,"className":"is-style-harmarium-eyebrow","textColor":"ochre"} -->
+    <h6 class="wp-block-heading has-text-align-center is-style-harmarium-eyebrow has-ochre-color has-text-color">Gallery Shop</h6>
+    <!-- /wp:heading -->
+    <!-- wp:heading {"textAlign":"center","level":1,"textColor":"paper"} -->
+    <h1 class="wp-block-heading has-text-align-center has-paper-color has-text-color">Originals & Editions</h1>
+    <!-- /wp:heading -->
+    <!-- wp:paragraph {"align":"center","textColor":"paper"} -->
+    <p class="has-text-align-center has-paper-color has-text-color">Acquire original portrait works and limited fine-art prints. Each piece previews on a real-life wall before you buy.</p>
+    <!-- /wp:paragraph -->
+  </div>
+</div>
+<!-- /wp:cover -->
+
+<!-- wp:template-part {"slug":"shop-header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1440px"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--60)">
+
+  <!-- wp:columns {"verticalAlignment":"top","align":"wide"} -->
+  <div class="wp-block-columns alignwide are-vertically-aligned-top">
+    <!-- wp:column {"width":"260px","verticalAlignment":"top","style":{"position":{"type":"sticky","top":"96px"}}} -->
+    <div class="wp-block-column is-vertically-aligned-top" style="position:sticky;top:96px;flex-basis:260px">
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"price-filter","heading":"Price"} -->
+      <!-- wp:woocommerce/price-filter /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"attribute-filter","heading":"Medium"} -->
+      <!-- wp:woocommerce/attribute-filter {"attributeId":0} /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"stock-filter","heading":"Availability"} -->
+      <!-- wp:woocommerce/stock-filter /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+
+      <!-- wp:woocommerce/filter-wrapper {"filterType":"active-filters","heading":"Active filters"} -->
+      <!-- wp:woocommerce/active-filters /-->
+      <!-- /wp:woocommerce/filter-wrapper -->
+    </div>
+    <!-- /wp:column -->
+
+    <!-- wp:column -->
+    <div class="wp-block-column">
+      <!-- wp:woocommerce/store-notices /-->
+
+      <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+      <div class="wp-block-group">
+        <!-- wp:woocommerce/catalog-sorting /-->
+        <!-- wp:woocommerce/product-results-count /-->
+      </div>
+      <!-- /wp:group -->
+
+      <!-- wp:query {"queryId":50,"query":{"perPage":12,"postType":"product","inherit":true},"align":"wide"} -->
+      <div class="wp-block-query alignwide">
+        <!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
+          <!-- wp:group {"className":"is-style-harmarium-card harmarium-product-card"} -->
+          <div class="wp-block-group is-style-harmarium-card harmarium-product-card">
+            <!-- wp:woocommerce/product-image {"showSaleBadge":true,"saleBadgeAlign":"right","imageSizing":"cropped"} /-->
+            <!-- wp:woocommerce/product-title {"isLink":true,"headingLevel":3} /-->
+            <!-- wp:woocommerce/product-price /-->
+            <!-- wp:woocommerce/product-button /-->
+          </div>
+          <!-- /wp:group -->
+        <!-- /wp:post-template -->
+        <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+          <!-- wp:query-pagination-previous /-->
+          <!-- wp:query-pagination-numbers /-->
+          <!-- wp:query-pagination-next /-->
+        <!-- /wp:query-pagination -->
+        <!-- wp:query-no-results -->
+          <!-- wp:paragraph {"align":"center"} -->
+          <p class="has-text-align-center">No products match the current filter.</p>
+          <!-- /wp:paragraph -->
+        <!-- /wp:query-no-results -->
+      </div>
+      <!-- /wp:query -->
+    </div>
+    <!-- /wp:column -->
+  </div>
+  <!-- /wp:columns -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

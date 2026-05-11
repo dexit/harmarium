@@ -1,0 +1,9 @@
+/* Harmarium Extensions — admin styles */
+.hm-qr-preview { max-width: 120px; }
+.hm-qr-preview svg { width: 100%; height: auto; border: 1px solid #ddd; padding: 4px; background: #fff; }
+
+.column-hm_linked_product,
+.column-hm_linked_portfolio { width: 180px; }
+.column-hm_status { width: 110px; }
+.column-hm_email  { width: 180px; }
+.column-hm_budget { width: 110px; }

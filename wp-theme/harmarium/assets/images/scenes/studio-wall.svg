@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="wall-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F8F6F0"/><stop offset="100%" stop-color="#EEE9E0"/></linearGradient>
+    <linearGradient id="floor-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D8D2C8"/><stop offset="100%" stop-color="#C0BAB0"/></linearGradient>
+    <linearGradient id="ceil-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(0,0,0,.14)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></linearGradient>
+    <radialGradient id="spot-g" cx="50%" cy="0%" r="60%"><stop offset="0%" stop-color="rgba(255,245,220,.28)"/><stop offset="100%" stop-color="rgba(255,245,220,0)"/></radialGradient>
+  </defs>
+  <!-- White gallery wall -->
+  <rect width="1200" height="710" fill="url(#wall-g)"/>
+  <rect width="1200" height="50" fill="url(#ceil-g)"/>
+  <!-- Floor -->
+  <rect y="710" width="1200" height="190" fill="url(#floor-g)"/>
+  <rect y="702" width="1200" height="8" fill="#C8C0B4"/>
+  <!-- Floor boards -->
+  <line x1="0" y1="750" x2="1200" y2="750" stroke="rgba(0,0,0,.05)" stroke-width="2"/>
+  <line x1="0" y1="800" x2="1200" y2="800" stroke="rgba(0,0,0,.04)" stroke-width="2"/>
+  <line x1="0" y1="850" x2="1200" y2="850" stroke="rgba(0,0,0,.03)" stroke-width="2"/>
+  <!-- Vertical floor plank lines -->
+  <line x1="200" y1="710" x2="200" y2="900" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+  <line x1="400" y1="710" x2="400" y2="900" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+  <line x1="600" y1="710" x2="600" y2="900" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+  <line x1="800" y1="710" x2="800" y2="900" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+  <line x1="1000" y1="710" x2="1000" y2="900" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+
+  <!-- Spotlight -->
+  <rect x="570" y="0" width="8" height="50" fill="#B0A898" rx="2"/>
+  <ellipse cx="574" cy="52" rx="36" ry="12" fill="#A09080"/>
+  <rect x="556" y="52" width="36" height="18" rx="3" fill="#888078"/>
+  <!-- Spot light cone -->
+  <polygon points="574,70 380,710 760,710" fill="url(#spot-g)"/>
+
+  <!-- ARTWORK ZONE — center gallery wall, prime position -->
+  <rect id="hm-artwork-zone" x="324" y="120" width="552" height="460" fill="rgba(0,0,0,.02)" data-artwork-zone="true"/>
+
+  <!-- Floor shadow below artwork -->
+  <ellipse cx="600" cy="712" rx="330" ry="18" fill="rgba(0,0,0,.09)"/>
+
+  <!-- Small sculpture stand far right -->
+  <rect x="1070" y="580" width="70" height="130" fill="#E0D8CC"/>
+  <rect x="1060" y="574" width="90" height="10" rx="1" fill="#D0C8BC"/>
+  <ellipse cx="1105" cy="574" rx="28" ry="48" fill="#C8C0B0"/>
+</svg>

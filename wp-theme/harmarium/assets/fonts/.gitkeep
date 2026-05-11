@@ -1,0 +1,5 @@
+Place self-hosted font files here, then update theme.json to reference them via:
+  "src": ["file:./assets/fonts/cormorant-garamond.woff2"]
+
+Recommended: Cormorant Garamond (weights 300, 400, 500, 700) from fonts.google.com or fontsource.
+Without the file the theme falls back to Playfair Display → Georgia.

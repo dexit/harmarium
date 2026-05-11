@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "harmarium/artwork-spotlight",
+  "version": "1.0.0",
+  "title": "Artwork Spotlight",
+  "category": "harmarium",
+  "icon": "format-image",
+  "description": "A full-width editorial spotlight featuring an artwork image, meta, and CTA.",
+  "keywords": ["artwork", "spotlight", "featured", "hero"],
+  "textdomain": "harmarium-ext",
+  "usesContext": ["postId", "postType"],
+  "supports": { "html": false, "align": ["wide", "full"] },
+  "attributes": {
+    "postId":     { "type": "integer", "default": 0 },
+    "ctaText":    { "type": "string",  "default": "View artwork" },
+    "ctaUrl":     { "type": "string",  "default": "" },
+    "reversed":   { "type": "boolean", "default": false }
+  },
+  "render": "file:./render.php"
+}

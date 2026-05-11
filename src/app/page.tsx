@@ -35,6 +35,11 @@ export default function Home() {
                   Shop
                 </Link>
               </li>
+              <li>
+                <Link href="/contact" className="text-sm font-medium hover:text-zinc-600 dark:hover:text-zinc-400">
+                  Commission
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
@@ -57,7 +62,7 @@ export default function Home() {
                 View Portfolio
               </Link>
               <Link href="/contact" className="text-sm font-semibold leading-6 text-zinc-900 dark:text-zinc-50">
-                Contact <span aria-hidden="true">→</span>
+                Commission a portrait <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
